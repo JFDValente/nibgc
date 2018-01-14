@@ -1,0 +1,39 @@
+
+<div class="ui two column grid">
+	<div class="column">
+		<h2>Membros</h2>
+	</div>
+	<div class="column">
+		<button class="ui right labeled icon button" ng-click="cadastro()">
+			Cadastrar
+			<i class="right plus icon"></i>
+		</button>
+
+		<search model="pesquisa"
+			placeholder="nome.." onsearch="pesquisar(value)"></search>
+	</div>
+</div>
+
+<message ng-if="message.length" text="{{ message }}" color="olive"></message>
+<loader model="loading"></loader>
+
+<table class="ui table celled" ng-if="membros.length && !loading">
+	<thead>
+		<th>Nome</th>
+		<th>Líder</th>		
+		<th>Gerenciar</th>
+	</thead>
+	<tr ng-repeat="c in membros">
+		<td>{{ c.nome }}</td>
+		<td>{{ c.nomeLider }}</td>
+		<td>
+			button.ui.buton
+			<button class="ui button">
+				Editar
+			</button>
+			<button class="ui button">
+				Excluir
+			</button>
+		</td>
+	</tr>
+</table>
