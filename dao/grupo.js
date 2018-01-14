@@ -1,8 +1,7 @@
 //const TABELA_GRUPO = "grupo"
-const TABELA_GRUPO = app.config.database.tabelas.TABELA_GRUPO
-
 module.exports = function(app){
 
+	const TABELA_GRUPO = app.config.database.tabelas.TABELA_GRUPO
 	let db = app.config.database.db()
 
 	return {
