@@ -1,8 +1,6 @@
 //const TABELA_MEMBRO = "Membro"
-const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
-
 module.exports = function(app){
-
+	const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
 	let db = app.config.database.db()
 
 	return {

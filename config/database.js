@@ -22,10 +22,10 @@ module.exports = function(app){
 			return connection
 		},
 		tabelas:{
-			TABELA_MEMBRO : 'membro',
-			TABELA_MINISTERIO : 'ministerio',
-			TABELA_GRUPO : 'grupo',
-			TABELA_ATUAEM: 'atuaem'
+			TABELA_MEMBRO : 'Membro',
+			TABELA_MINISTERIO : 'Ministerio',
+			TABELA_GRUPO : 'Grupo',
+			TABELA_ATUAEM: 'Atuaem'
 		}
 	}
 }
