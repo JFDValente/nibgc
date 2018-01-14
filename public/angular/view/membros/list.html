@@ -20,18 +20,20 @@
 <table class="ui table celled" ng-if="membros.length && !loading">
 	<thead>
 		<th>Nome</th>
-		<th>Líder</th>		
+		<th>Líder</th>
 		<th>Gerenciar</th>
 	</thead>
-	<tr ng-repeat="c in membros">
-		<td>{{ c.nome }}</td>
-		<td>{{ c.nomeLider }}</td>
+	<tr ng-repeat="m in membros">
+		<td>{{ m.nome }}</td>
+		<td>{{ m.nomeLider }}</td>
 		<td>
-			button.ui.buton
-			<button class="ui button">
-				Editar
+			<button class="ui buton">
+				Visualizar
 			</button>
-			<button class="ui button">
+			<a href="/membros/{{ m.id }}" class="ui button">
+				Editar
+			</a>
+			<button class="ui button" ng-click="onDelete()">
 				Excluir
 			</button>
 		</td>

@@ -13,6 +13,18 @@ load('config')
 	.then('controller')
 	.into(app)
 
-app.listen(3000,()=>{
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+
+io.on("connection", socket => {
+	app.set('socket', socket)
+})
+
+// Após ler todas as rotas, se não existir, redireciona para o início
+app.get("*", (req, res) => {
+	res.redirect("/")
+})
+
+http.listen(3000,()=>{
 	console.log('Servidor inicializado na porta 3000')
 })
