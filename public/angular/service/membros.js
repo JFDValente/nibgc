@@ -1,4 +1,4 @@
-app.service("Membros", function(){
+app.service("Membros", function($http){
 
 	let membros = []
 
@@ -47,6 +47,7 @@ app.service("Membros", function(){
 					})
 					.then(
 						res => {
+							membros = []
 							res.data.forEach(item => membros.push(item))
 							resolve(membros)
 						},
@@ -79,4 +80,5 @@ app.service("Membros", function(){
 			membros.splice(index, 1)
 			listener.update()
 		}
+	}
 })
