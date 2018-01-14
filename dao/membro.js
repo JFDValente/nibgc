@@ -1,5 +1,5 @@
 const TABELA_MEMBRO = "cliente"
-const db = require("../config/database").queryBuilder()
+const db = require("../config/database").db()
 
 module.exports = {
 
@@ -41,8 +41,8 @@ module.exports = {
 
 	find: function(id) {
 		return new Promise((resolve, reject) => {
-			db.where({ 'id =': id})
-			.from(TABELA_MEMBRO).get(function(err, res){
+			db.get_where({ 'id =': id})
+			.get(TABELA_MEMBRO, function(err, res){
 				if(err) reject(err)
 				else resolve(res[0])
 			})
