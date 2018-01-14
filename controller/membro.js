@@ -16,6 +16,23 @@ module.exports = function(app) {
 		)
 	})
 
+	app.get("/api/membros/:id", function(request, response){
+
+		let id = request.params.id
+
+		membroDAO.find(id)
+		.then(
+			res => {
+				response.send(res)
+			},
+			err => {
+				console.error("get /api/membros/:id\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
 	app.post("/api/membros", function(request, response){
 
 		let body = request.body
