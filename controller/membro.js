@@ -16,7 +16,7 @@ module.exports = function(app) {
 		)
 	})
 
-	app.get("/api/membros/:id", function(request, response){
+	app.get("/api/membro/:id", function(request, response){
 
 		let id = request.params.id
 
@@ -26,16 +26,18 @@ module.exports = function(app) {
 				response.send(res)
 			},
 			err => {
-				console.error("get /api/membros/:id\n")
+				console.error("get /api/membro/:id\n")
 				console.error(err)
 				response.status(500).send({ erro: err })
 			}
 		)
 	})
 
-	app.post("/api/membros", function(request, response){
+	app.post("/api/membro", function(request, response){
 
 		let body = request.body
+
+		console.log(body)
 
 		membroDAO.create(body)
 		.then(
@@ -49,14 +51,14 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("post /api/membros\n")
+				console.error("post /api/membro\n")
 				console.error(err)
 				response.send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
 
-	app.put("/api/membros", function(request, response){
+	app.put("/api/membro", function(request, response){
 
 		let body = request.body
 		let id = request.body.id
@@ -72,14 +74,14 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("put /api/membros\n")
+				console.error("put /api/membro\n")
 				console.error(err)
 				response.send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
 
-	app.delete("/api/membros", function(request, response){
+	app.delete("/api/membro", function(request, response){
 
 		let id = request.body.id
 
@@ -94,7 +96,7 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("delete /api/membros\n")
+				console.error("delete /api/membro\n")
 				console.error(err)
 				response.status(500).send({ message: "Ocorreu um erro" })
 			}
