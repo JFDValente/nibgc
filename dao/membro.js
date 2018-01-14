@@ -49,7 +49,12 @@ module.exports = function(app){
 		
 		search: function(attr,expression) {
 			return new Promise((resolve, reject) => {
-				db.like(attr,expression).from(TABELA_MEMBRO).get(function(err, res){
+				db.limit(10)
+				.select(['m.id','m.nome','m.contato','l.id as idLider','l.nome as nomeLider'])
+				.from(TABELA_MEMBRO + ' m')
+				.join(TABELA_GRUPO + ' g','m.idGrupo=g.id')
+				.join(TABELA_MEMBRO + ' l','g.idLider=l.id')
+				.get(function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
