@@ -1,4 +1,5 @@
-const TABELA_MEMBRO = "grupo"
+//const TABELA_GRUPO = "grupo"
+const TABELA_GRUPO = app.config.database.tabelas.TABELA_GRUPO
 
 module.exports = function(app){
 
@@ -8,7 +9,7 @@ module.exports = function(app){
 
 		create: function(data) {
 			return new Promise((resolve, reject) =>{
-				db.insert(TABELA_MEMBRO, data, function(err, res){
+				db.insert(TABELA_GRUPO, data, function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
@@ -17,7 +18,7 @@ module.exports = function(app){
 
 		update: function(data, id) {
 			return new Promise((resolve, reject) =>{
-				db.update(TABELA_MEMBRO, data, { id: id }, function(err, res){
+				db.update(TABELA_GRUPO, data, { id: id }, function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
@@ -26,7 +27,7 @@ module.exports = function(app){
 
 		delete: function(id) {
 			return new Promise((resolve, reject) =>{
-				db.delete(TABELA_MEMBRO, { id: id }, function(err, res) {
+				db.delete(TABELA_GRUPO, { id: id }, function(err, res) {
 					if(err) reject(err)
 					else resolve(res)
 				})
@@ -35,7 +36,7 @@ module.exports = function(app){
 
 		get: function() {
 			return new Promise((resolve, reject) => {
-				db.from(TABELA_MEMBRO).get(function(err, res){
+				db.from(TABELA_GRUPO).get(function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
@@ -45,7 +46,7 @@ module.exports = function(app){
 		find: function(id) {
 			return new Promise((resolve, reject) => {
 				db.where({ 'id =': id})
-				.get(TABELA_MEMBRO, function(err, res){
+				.get(TABELA_GRUPO, function(err, res){
 					if(err) reject(err)
 					else resolve(res[0])
 				})

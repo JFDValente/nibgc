@@ -1,4 +1,6 @@
-const TABELA_MEMBRO = "ministerio"
+const TABELA_MINISTERIO = app.config.database.tabelas.TABELA_MINISTERIO
+const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
+const TABELA_ATUAEM = app.config.database.tabelas.TABELA_ATUAEM
 
 module.exports = function(app){
 
@@ -8,7 +10,7 @@ module.exports = function(app){
 
 		create: function(data) {
 			return new Promise((resolve, reject) =>{
-				db.insert(TABELA_MEMBRO, data, function(err, res){
+				db.insert(TABELA_MINISTERIO, data, function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
@@ -17,7 +19,7 @@ module.exports = function(app){
 
 		update: function(data, id) {
 			return new Promise((resolve, reject) =>{
-				db.update(TABELA_MEMBRO, data, { id: id }, function(err, res){
+				db.update(TABELA_MINISTERIO, data, { id: id }, function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
@@ -26,7 +28,7 @@ module.exports = function(app){
 
 		delete: function(id) {
 			return new Promise((resolve, reject) =>{
-				db.delete(TABELA_MEMBRO, { id: id }, function(err, res) {
+				db.delete(TABELA_MINISTERIO, { id: id }, function(err, res) {
 					if(err) reject(err)
 					else resolve(res)
 				})
@@ -35,7 +37,7 @@ module.exports = function(app){
 
 		get: function() {
 			return new Promise((resolve, reject) => {
-				db.from(TABELA_MEMBRO).get(function(err, res){
+				db.from(TABELA_MINISTERIO).get(function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
@@ -45,6 +47,16 @@ module.exports = function(app){
 		find: function(id) {
 			return new Promise((resolve, reject) => {
 				db.where({ 'id =': id})
+				.get(TABELA_MINISTERIO, function(err, res){
+					if(err) reject(err)
+					else resolve(res[0])
+				})
+			})
+		}
+
+		findMembros: function(id) {
+			return new Promise((resolve, reject) => {
+				db.where({ 'idMinisterio =': id})
 				.get(TABELA_MEMBRO, function(err, res){
 					if(err) reject(err)
 					else resolve(res[0])
