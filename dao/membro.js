@@ -1,6 +1,7 @@
 //const TABELA_MEMBRO = "Membro"
 module.exports = function(app){
 	const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
+	const TABELA_GRUPO = app.config.database.tabelas.TABELA_GRUPO
 	let db = app.config.database.db()
 
 	return {
@@ -34,7 +35,12 @@ module.exports = function(app){
 
 		get: function() {
 			return new Promise((resolve, reject) => {
-				db.from(TABELA_MEMBRO).limit(10).get(function(err, res){
+				db.limit(10)
+				.select(['m.id','m.nome','m.contato','l.id as idLider','l.nome as nomeLider'])
+				.from(TABELA_MEMBRO + ' m')
+				.join(TABELA_GRUPO + ' g','m.idGrupo=g.id')
+				.join(TABELA_MEMBRO + ' l','g.idLider=l.id')
+				.get(function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
