@@ -33,6 +33,24 @@ module.exports = function(app) {
 		)
 	})
 
+	//retornar todos os membros de um determinado ministério, cujo id é passado como parâmetro
+	app.get("/api/ministerios/:id/membros", function(request, response){
+
+		let id = request.params.id
+
+		ministerioDAO.findMembros(id)
+		.then(
+			res => {
+				response.send(res)
+			},
+			err => {
+				console.error("get /api/ministerios/:id/membros\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
 	app.post("/api/ministerios", function(request, response){
 
 		let body = request.body

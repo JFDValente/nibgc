@@ -33,12 +33,29 @@ module.exports = function(app) {
 		)
 	})
 
+	app.get("/api/membros/search/query", function(request, response){
+
+		let attr = request.query.attr
+		let expression = request.query.expression
+
+		membroDAO.search(attr,expression)
+		.then(
+			res => {
+				response.json(res)
+			},
+			err => {
+				console.error("get /api/membros/:id\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
 	app.post("/api/membros", function(request, response){
 
 		let body = request.body
 
-		console.log(body)
-
+		//console.log(body)
 		membroDAO.create(body)
 		.then(
 			res => {

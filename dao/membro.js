@@ -1,4 +1,5 @@
-const TABELA_MEMBRO = "Membro"
+//const TABELA_MEMBRO = "Membro"
+const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
 
 module.exports = function(app){
 
@@ -35,7 +36,16 @@ module.exports = function(app){
 
 		get: function() {
 			return new Promise((resolve, reject) => {
-				db.from(TABELA_MEMBRO).get(function(err, res){
+				db.from(TABELA_MEMBRO).limit(10).get(function(err, res){
+					if(err) reject(err)
+					else resolve(res)
+				})
+			})
+		},
+		
+		search: function(attr,expression) {
+			return new Promise((resolve, reject) => {
+				db.like(attr,expression).from(TABELA_MEMBRO).get(function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
