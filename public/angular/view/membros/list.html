@@ -4,13 +4,13 @@
 		<h2>Membros</h2>
 	</div>
 	<div class="column">
-		<button class="ui right labeled icon button" ng-click="cadastro()">
+		<a ng-href="/membros/cadastro" class="ui right labeled icon button">
 			Cadastrar
 			<i class="right plus icon"></i>
-		</button>
+		</a>
 
 		<search model="pesquisa"
-			placeholder="nome.." onsearch="pesquisar(value)"></search>
+			placeholder="nome.." onsearch="onSearch(value)"></search>
 	</div>
 </div>
 
@@ -20,20 +20,24 @@
 <table class="ui table celled" ng-if="membros.length && !loading">
 	<thead>
 		<th>Nome</th>
+		<th>Contato</th>
 		<th>Líder</th>
-		<th>Gerenciar</th>
+		<th>#</th>
 	</thead>
 	<tr ng-repeat="m in membros">
 		<td>{{ m.nome }}</td>
-		<td>{{ m.nomeLider }}</td>
+		<td>{{ m.contato }}</td>
 		<td>
-			<button class="ui buton">
+			<a ng-href="/membros/{{ m.idLider }}">{{ m.nomeLider }}</a>
+		</td>
+		<td>
+			<a ng-href="/membros/{{ m.id }}" class="ui button">
 				Visualizar
-			</button>
+			</a>
 			<a href="/membros/{{ m.id }}" class="ui button">
 				Editar
 			</a>
-			<button class="ui button" ng-click="onDelete()">
+			<button class="ui button" ng-click="onDelete(m.id)">
 				Excluir
 			</button>
 		</td>

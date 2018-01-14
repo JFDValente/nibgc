@@ -5,6 +5,18 @@ app.controller("membros", function($scope, Membros, Dialog){
 	$scope.message = ""
 	$scope.loading = true
 
+	$scope.onSearch = function(value) {
+		if(value.length) {
+			Membros.search("nome", value).then(
+				data => render(data),
+				err => {
+					console.log(err)
+					Dialog.error()
+				}
+			)
+		}
+	}
+
 	$scope.onDelete = function(item, $index) {
 		Dialog.confirm("Excluir o cadastro do membro", () => {
 			Membros.delete(item, function(){
@@ -14,18 +26,22 @@ app.controller("membros", function($scope, Membros, Dialog){
 	}
 
 	Membros.get().then(
-		data => {
-			$scope.membros = data
-			if(!data.length) {
-				$scope.message = "Nenhum resultado encontrado :("
-			}
-
-			$scope.loading = false
-			$scope.$apply()
-		},
+		data => render(data),
 		err => {
 			console.log(err)
 			Dialog.error()
 		}
 	)
+
+	function render(data) {
+
+		$scope.membros = data
+
+		if(!data.length) {
+			$scope.message = "Nenhum resultado encontrado :("
+		}
+
+		$scope.loading = false
+		$scope.$apply()
+	}
 })

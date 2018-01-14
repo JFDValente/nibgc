@@ -15,6 +15,10 @@ app.config(function($routeProvider, $locationProvider){
 		templateUrl: 'angular/view/membros/list.html',
 		controller: 'membros'
 	})
+	.when("/membros/cadastro", {
+		templateUrl: 'angular/view/membros/form.html',
+		controller: 'membrosForm'
+	})
 	.when('/logout', {
 		redirectTo: function() {
 			window.location.href = '/logout'

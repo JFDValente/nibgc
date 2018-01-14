@@ -79,6 +79,24 @@ app.service("Membros", function($http){
 		remove: (index) => {
 			membros.splice(index, 1)
 			listener.update()
+		},
+
+		search: (attr, expression) => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "GET",
+					url: "/api/membros/search/query",
+					params: { attr: attr, expression: expression }
+				})
+				.then(
+					res => {
+						membros = []
+						res.data.forEach(item => membros.push(item))
+						resolve(res.data)
+					},
+					err => reject(err)
+				)
+			})
 		}
 	}
 })
