@@ -16,7 +16,7 @@ module.exports = function(app) {
 		)
 	})
 
-	app.get("/api/ministerio/:id", function(request, response){
+	app.get("/api/ministerios/:id", function(request, response){
 
 		let id = request.params.id
 
@@ -26,14 +26,14 @@ module.exports = function(app) {
 				response.send(res)
 			},
 			err => {
-				console.error("get /api/ministerio/:id\n")
+				console.error("get /api/ministerios/:id\n")
 				console.error(err)
 				response.status(500).send({ erro: err })
 			}
 		)
 	})
 
-	app.post("/api/ministerio", function(request, response){
+	app.post("/api/ministerios", function(request, response){
 
 		let body = request.body
 
@@ -49,14 +49,14 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("post /api/ministerio\n")
+				console.error("post /api/ministerios\n")
 				console.error(err)
 				response.send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
 
-	app.put("/api/ministerio", function(request, response){
+	app.put("/api/ministerios", function(request, response){
 
 		let body = request.body
 		let id = request.body.id
@@ -72,14 +72,14 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("put /api/ministerio\n")
+				console.error("put /api/ministerios\n")
 				console.error(err)
 				response.send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
 
-	app.delete("/api/ministerio", function(request, response){
+	app.delete("/api/ministerios", function(request, response){
 
 		let id = request.body.id
 
@@ -94,7 +94,7 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("delete /api/ministerio\n")
+				console.error("delete /api/ministerios\n")
 				console.error(err)
 				response.status(500).send({ message: "Ocorreu um erro" })
 			}

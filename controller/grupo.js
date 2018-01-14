@@ -1,43 +1,43 @@
 module.exports = function(app) {
 
-	let grupopequenoDAO = app.dao.grupopequeno
+	let grupoDAO = app.dao.grupo
 
-	app.get("/api/grupospequenos", function(request, response){
-		grupopequenoDAO.get()
+	app.get("/api/grupos", function(request, response){
+		grupoDAO.get()
 		.then(
 			res => {
 				response.send(res)
 			},
 			err => {
-				console.error("get /api/grupospequenos\n")
+				console.error("get /api/grupos\n")
 				console.error(err)
 				response.status(500).send({ erro: err })
 			}
 		)
 	})
 
-	app.get("/api/grupopequeno/:id", function(request, response){
+	app.get("/api/grupos/:id", function(request, response){
 
 		let id = request.params.id
 
-		grupopequenoDAO.find(id)
+		grupoDAO.find(id)
 		.then(
 			res => {
 				response.send(res)
 			},
 			err => {
-				console.error("get /api/grupopequeno/:id\n")
+				console.error("get /api/grupos/:id\n")
 				console.error(err)
 				response.status(500).send({ erro: err })
 			}
 		)
 	})
 
-	app.post("/api/grupopequeno", function(request, response){
+	app.post("/api/grupos", function(request, response){
 
 		let body = request.body
 
-		grupopequenoDAO.create(body)
+		grupoDAO.create(body)
 		.then(
 			res => {
 				body.id = res.insertId
@@ -49,19 +49,19 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("post /api/grupopequeno\n")
+				console.error("post /api/grupos\n")
 				console.error(err)
 				response.send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
 
-	app.put("/api/grupospequeno", function(request, response){
+	app.put("/api/grupos", function(request, response){
 
 		let body = request.body
 		let id = request.body.id
 
-		grupopequenoDAO.update(body, id)
+		grupoDAO.update(body, id)
 		.then(
 			res => {
 				//app.get("socket").emit("update grupospequeno", body)
@@ -72,18 +72,18 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("put /api/grupopequeno\n")
+				console.error("put /api/grupos\n")
 				console.error(err)
 				response.send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
 
-	app.delete("/api/grupopequeno", function(request, response){
+	app.delete("/api/grupos", function(request, response){
 
 		let id = request.body.id
 
-		grupopequenoDAO.delete(id)
+		grupoDAO.delete(id)
 		.then(
 			res => {
 				//app.get("socket").broadcast.emit("delete grupospequeno", id)
@@ -94,7 +94,7 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("delete /api/grupopequeno\n")
+				console.error("delete /api/grupos\n")
 				console.error(err)
 				response.status(500).send({ message: "Ocorreu um erro" })
 			}

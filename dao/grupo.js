@@ -1,4 +1,4 @@
-const TABELA_MEMBRO = "grupopequeno"
+const TABELA_MEMBRO = "grupo"
 
 module.exports = function(app){
 
