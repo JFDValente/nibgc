@@ -1,6 +1,31 @@
-<div class="field">
-	<div class="ui massive fluid icon input">
-		<input type="text" placeholder="Pesquisar nome..">
-		<i class="search icon"></i>
+<form class="ui form" ng-submit="onSubmit($event)">
+	<div class="field">
+		<div class="ui massive fluid icon input" ng-class="{ 'loading': loading }">
+			<input autocomplete="off" autofocus
+				type="search" placeholder="Pesquisar nome.." ng-model="search">
+			<i class="search icon"></i>
+		</div>
 	</div>
-</div>
+</form>
+
+<message ng-if="message.length" text="{{ message }}" color="olive"></message>
+
+<table class="ui table" ng-if="membros.length">
+<thead>
+	<th>Nome</th>
+	<th>Líder</th>
+	<th>#</th>
+</thead>
+<tr ng-repeat="m in membros">
+	<td>{{ m.nome }}</td>
+	<td>{{ m.nomeLider }}</td>
+	<td>
+		<button class="ui positive button" ng-click="cancelar(m.id)">
+			Inscrever
+		</button>
+		<button class="ui secondary button" ng-click="cancelar(m.id)">
+			Cancelar Inscrição
+		</button>
+	</td>
+</tr>
+</table>

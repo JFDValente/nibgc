@@ -91,8 +91,8 @@ app.service("Membros", function($http){
 				.then(
 					res => {
 						membros = []
-						res.data.forEach(item => membros.push(item))
-						resolve(res.data)
+						res.data.rows.forEach(item => membros.push(item))
+						resolve(membros)
 					},
 					err => reject(err)
 				)
