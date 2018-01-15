@@ -22,7 +22,7 @@
 		<th>Local de reunião</th>
 		<th>#</th>
 	</thead>
-	<tr ng-repeat="m in grupos | filter: pesquisa : id">
+	<tr ng-repeat="m in grupos | filter: pesquisa : nomeLider">
 		<td>
 			<a ng-href="/grupos/{{ m.idLider }}">{{ m.nomeLider }}</a>
 		</td>
@@ -31,10 +31,10 @@
 			<a ng-href="/grupos/{{ m.id }}" class="ui button">
 				Visualizar
 			</a>
-			<a href="/grupos/{{ m.id }}" class="ui button">
+			<a href="/grupos/cadastro/{{ m.id }}" class="ui button">
 				Editar
 			</a>
-			<button class="ui button" ng-click="onDelete(m.id)">
+			<button class="ui button" ng-click="onDelete(m)">
 				Excluir
 			</button>
 		</td>

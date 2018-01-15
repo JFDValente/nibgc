@@ -1,0 +1,42 @@
+<form class="ui form" name="form" ng-submit="onSubmit($event, form)" novalidate>
+
+	<message ng-if="message.length" text="{{message}}" color="red"></message>
+
+	<div class="fields">
+		<div class="field wide four">
+			<label>Líder</label>
+			<dropdown-remote
+				ng-model="lider.nome" change="onChange(item)" items="lideres"
+				url="/api/membros/search/query" text="nome" value="id">
+			</dropdown-remote>
+		</div>
+
+		<div class="field wide six"
+			ng-class="{
+				'error': form.localDeReuniao.$invalid && form.$submitted
+			}">
+			<label for="localDeReuniao">Local de Reunião</label>
+			<input autocomplete="off" required ng-model="grupo.localDeReuniao"
+				type="text" name="localDeReuniao" placeholder="Casa do líder">
+		</div>
+
+		<div class="field wide four">
+			<label>Dia da reunião</label>
+			<select class="ui dropdown">
+				<option value="Domingo">Domingo</option>
+				<option value="Segunda">Segunda</option>
+				<option value="Terça">Terça</option>
+				<option value="Quarta">Quarta</option>
+				<option value="Quinta">Quinta</option>
+				<option value="Sexta">Sexta</option>
+				<option value="Sábado">Sábado</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="field">
+		<button class="ui button">
+			Salvar
+		</button>
+	</div>
+</form>

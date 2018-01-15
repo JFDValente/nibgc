@@ -19,6 +19,14 @@ app.config(function($routeProvider, $locationProvider){
 		templateUrl: 'angular/view/grupos/list.html',
 		controller: 'grupos'
 	})
+	.when("/grupos/cadastro", {
+		templateUrl: 'angular/view/grupos/form.html',
+		controller: 'gruposForm'
+	})
+	.when("/grupos/cadastro/:id", {
+		templateUrl: 'angular/view/grupos/form.html',
+		controller: 'gruposForm'
+	})
 	.when("/ministerios", {
 		templateUrl: 'angular/view/ministerios/list.html',
 		controller: 'membros'
