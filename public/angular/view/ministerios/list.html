@@ -1,42 +1,45 @@
 
 <div class="ui two column grid">
 	<div class="column">
-		<h2>Grupos</h2>
+		<h2>Ministérios</h2>
 	</div>
 	<div class="column">
-		<a ng-href="/grupos/cadastro" class="ui right labeled icon button">
+		<a ng-href="/ministerios/cadastro" class="ui right labeled icon button">
 			Cadastrar
 			<i class="right plus icon"></i>
 		</a>
 
-		<filter ng-model="pesquisa" placeholder="nome do líder.."></filter>
+		<filter ng-model="pesquisa" placeholder="ministério.."></filter>
 	</div>
 </div>
 
 <message ng-if="message.length" text="{{ message }}" color="olive"></message>
 <loader model="loading"></loader>
 
-<table class="ui table celled" ng-if="grupos.length && !loading">
+<table class="ui table celled" ng-if="ministerios.length && !loading">
 	<thead>
+		<th>Ministério</th>
 		<th>Líder</th>
-		<th>Local de reunião</th>
 		<th>#</th>
 	</thead>
-	<tr ng-repeat="m in grupos | filter: pesquisa : nomeLider">
+	<tr ng-repeat="m in ministerios | filtro: pesquisa : 'nome'">
+		<td>{{ m.nome }}</td>
 		<td>
 			<a ng-href="/membros/{{ m.idLider }}">{{ m.nomeLider }}</a>
 		</td>
-		<td>{{ m.localDeReuniao }}</td>
 		<td>
-			<a ng-href="/grupos/{{ m.id }}" class="ui icon button" title="Visualizar">
+			<a ng-href="/ministerios/{{ m.id }}" class="ui icon button" title="Visualizar">
 				<i class="search icon"></i>
 			</a>
-			<a href="/grupos/cadastro/{{ m.id }}" class="ui icon button" title="Editar">
+			<a href="/ministerios/cadastro/{{ m.id }}" class="ui icon button" title="Editar">
 				<i class="edit icon"></i>
 			</a>
 			<button class="ui icon button" ng-click="onDelete(m)" title="Excluir">
 				<i class="trash icon"></i>
 			</button>
+			<a href="/ministerios/{{ m.id }}/feira" class="ui button">
+				Feira de ministérios
+			</a>
 		</td>
 	</tr>
 </table>

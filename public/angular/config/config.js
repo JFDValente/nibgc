@@ -11,10 +11,12 @@ app.config(function($routeProvider, $locationProvider){
 		templateUrl: 'angular/view/dashboard.html',
 		controller: 'dashboard'
 	})
+
 	.when("/membros", {
 		templateUrl: 'angular/view/membros/list.html',
 		controller: 'membros'
 	})
+
 	.when("/grupos", {
 		templateUrl: 'angular/view/grupos/list.html',
 		controller: 'grupos'
@@ -27,10 +29,24 @@ app.config(function($routeProvider, $locationProvider){
 		templateUrl: 'angular/view/grupos/form.html',
 		controller: 'gruposForm'
 	})
+
 	.when("/ministerios", {
 		templateUrl: 'angular/view/ministerios/list.html',
-		controller: 'membros'
+		controller: 'ministerios'
 	})
+	.when("/ministerios/cadastro", {
+		templateUrl: 'angular/view/ministerios/form.html',
+		controller: 'ministeriosForm'
+	})
+	.when("/ministerios/cadastro/:id", {
+		templateUrl: 'angular/view/ministerios/form.html',
+		controller: 'ministeriosForm'
+	})
+	.when("/ministerios/:id/feira", {
+		templateUrl: 'angular/view/ministerios/feira.html',
+		controller: 'ministeriosFeira'
+	})
+
 	.when('/logout', {
 		redirectTo: function() {
 			window.location.href = '/logout'

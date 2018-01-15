@@ -1,0 +1,46 @@
+<form class="ui form" name="form" ng-submit="onSubmit($event, form)" novalidate>
+
+	<message ng-if="message.length" text="{{message}}" color="red"></message>
+
+	<div class="fields">
+
+		<div class="field">
+			<label>Nome</label>
+			<input type="text" autocomplete="off" ng-model="ministerio.nome">
+		</div>
+
+		<div class="field wide four">
+			<label>Líder</label>
+			<dropdown-remote
+				ng-model="lider.nome" change="onChange(item)" items="lideres"
+				url="/api/ministerios/search/query" text="nome" value="id">
+			</dropdown-remote>
+		</div>
+	</div>
+
+	<div class="fields">
+		<div class="field wide six"
+			ng-class="{
+				'error': form.dadosReuniao.$invalid && form.$submitted
+			}">
+			<label for="localDeReuniao">Informações</label>
+			<input autocomplete="off" required ng-model="ministerio.dadosReuniao"
+				type="text" name="dadosReuniao" placeholder="Reuniões aos domingos">
+		</div>
+
+		<div class="field wide six"
+			ng-class="{
+				'error': form.descricao.$invalid && form.$submitted
+			}">
+			<label for="descricao">Descrição</label>
+			<input autocomplete="off" required ng-model="ministerio.descricao"
+				type="text" name="descricao" placeholder="Reuniões aos domingos">
+		</div>
+	</div>
+
+	<div class="field">
+		<button class="ui button">
+			Salvar
+		</button>
+	</div>
+</form>

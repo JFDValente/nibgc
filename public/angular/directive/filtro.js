@@ -8,15 +8,15 @@ app.filter("filtro", function(){
 
 		for(let i = 0; i < items.length; i++) {
 
-			let formated = items[i][property]
+			let formated = items[i][property].toUpperCase()
 
 			formated = formated
-							.replace("á","a")
-							.replace("é","e")
-							.replace("í","i")
-							.replace("ç","c")
+							.replace("Á","A")
+							.replace("É","E")
+							.replace("Í","I")
+							.replace("Ú","U")
+							.replace("Ç","c")
 
-			formated = formated.toUpperCase()
 			term = term.toUpperCase()
 
 			if(formated.indexOf(term) > -1) {
