@@ -42,7 +42,7 @@ module.exports = function(app) {
 		membroDAO.search(attr,expression)
 		.then(
 			res => {
-				response.send({membros:res})
+				response.send({rows:res})
 				console.log(res)
 			},
 			err => {
