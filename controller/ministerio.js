@@ -33,6 +33,25 @@ module.exports = function(app) {
 		)
 	})
 
+	//retonar os ministerios de acordo com um parâmetro qualquer, definido pelo frontend
+	app.get("/api/ministerios/search/query", function(request, response){
+
+		let attr = request.query.attr
+		let expression = request.query.expression
+
+		grupoDAO.search(attr,expression)
+		.then(
+			res => {
+				response.json(res)
+			},
+			err => {
+				console.error("get /api/ministerios/search/query\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
 	//retornar todos os membros de um determinado ministério, cujo id é passado como parâmetro
 	app.get("/api/ministerios/:id/membros", function(request, response){
 

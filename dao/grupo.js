@@ -2,6 +2,7 @@
 module.exports = function(app){
 
 	const TABELA_GRUPO = app.config.database.tabelas.TABELA_GRUPO
+	const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
 	let db = app.config.database.db()
 
 	return {
@@ -35,12 +36,31 @@ module.exports = function(app){
 
 		get: function() {
 			return new Promise((resolve, reject) => {
-				db.from(TABELA_GRUPO).get(function(err, res){
+				db.select(['g.id','m.id as idLider','m.nome as nomeLider','g.localDeReuniao'])
+				.from(TABELA_GRUPO + ' g')
+				.join(TABELA_MEMBRO + ' m','g.idLider=m.id')
+				.order_by('g.id','desc')
+				.get(function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
 			})
 		},
+
+		search: function() {
+			return new Promise((resolve, reject) => {
+				db.select(['g.id','m.id as idLider','m.nome as nomeLider','g.localDeReuniao'])
+				.from(TABELA_GRUPO + ' g')
+				.join(TABELA_MEMBRO + ' m','g.idLider=m.id')
+				.like(attr,expression)
+				.order_by('m.id','desc')
+				.get(function(err, res){
+					if(err) reject(err)
+					else resolve(res)
+				})
+			})
+		},
+
 
 		find: function(id) {
 			return new Promise((resolve, reject) => {

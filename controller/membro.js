@@ -33,6 +33,7 @@ module.exports = function(app) {
 		)
 	})
 
+	//retonar os membros de acordo com um parâmetro qualquer, definido pelo frontend
 	app.get("/api/membros/search/query", function(request, response){
 
 		let attr = request.query.attr
@@ -41,10 +42,10 @@ module.exports = function(app) {
 		membroDAO.search(attr,expression)
 		.then(
 			res => {
-				response.json(res)
+				response.send(res)
 			},
 			err => {
-				console.error("get /api/membros/:id\n")
+				console.error("get /api/membros/search/query\n")
 				console.error(err)
 				response.status(500).send({ erro: err })
 			}

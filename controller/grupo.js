@@ -33,6 +33,25 @@ module.exports = function(app) {
 		)
 	})
 
+	//retonar os grupos de acordo com um parâmetro qualquer, definido pelo frontend
+	app.get("/api/grupos/search/query", function(request, response){
+
+		let attr = request.query.attr
+		let expression = request.query.expression
+
+		grupoDAO.search(attr,expression)
+		.then(
+			res => {
+				response.json(res)
+			},
+			err => {
+				console.error("get /api/grupos/search/query\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
 	app.post("/api/grupos", function(request, response){
 
 		let body = request.body
