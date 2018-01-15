@@ -101,7 +101,7 @@ module.exports = function(app) {
 	app.delete("/api/grupos", function(request, response){
 
 		let id = request.body.id
-
+		console.log('id', request.body)
 		grupoDAO.delete(id)
 		.then(
 			res => {

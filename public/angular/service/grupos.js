@@ -1,4 +1,4 @@
-app.service("Grupos", function($http){
+app.service("Grupos", function($http, listener){
 
 	let grupos = []
 
@@ -23,7 +23,7 @@ app.service("Grupos", function($http){
 		}
 	})
 
-	socket.on("delete grupo", function(id) {
+	socket.on("delete grupo", function(id) {console.log('id', id)
 		for(let i = 0; i < grupos.length; i++) {
 			if(grupos[i].id == id) {
 				grupos.splice(i, 1)
@@ -34,6 +34,14 @@ app.service("Grupos", function($http){
 	})
 
 	return {
+
+		find: (id) => {
+			for(let i = 0; i < grupos.length; i++) {
+				if(id == grupos[i].id) {
+					return grupos[i]
+				}
+			}
+		},
 
 		get: () => {
 			return new Promise((resolve, reject) => {
@@ -57,23 +65,49 @@ app.service("Grupos", function($http){
 			})
 		},
 
-		delete: (item, callback) => {
-			$http({
-				method: "DELETE",
-				url: "/api/grupos",
-				data: { id: item.id },
-			    headers: {
-			        'Content-type': 'application/json;charset=utf-8'
-			    }
+		create: data => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "POST",
+					url: "/api/grupos",
+					data: data
+				})
+				.then(
+					res => resolve(res),
+					err => reject(err)
+				)
 			})
-			.then(
-				response => {
-					if(callback) callback()
-				},
-				err => {
-					console.error(err)
-				}
-			)
+		},
+
+		update: data => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "PUT",
+					url: "/api/grupos",
+					data: data
+				})
+				.then(
+					res => resolve(res),
+					err => reject(err)
+				)
+			})
+		},
+
+		delete: (item) => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "DELETE",
+					url: "/api/grupos",
+					data: { id: item.id },
+				    headers: {
+				        'Content-type': 'application/json;charset=utf-8'
+				    }
+				})
+				.then(
+					res => resolve(res),
+					err => reject(err)
+				)
+			})
 		},
 
 		remove: (index) => {
