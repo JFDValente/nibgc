@@ -55,7 +55,7 @@ module.exports = function(app){
 				.from(TABELA_MEMBRO + ' m')
 				.join(TABELA_GRUPO + ' g','m.idGrupo=g.id')
 				.join(TABELA_MEMBRO + ' l','g.idLider=l.id')
-				.like(attr,expression)
+				.like('m.'+attr,expression)
 				.order_by('m.id','desc')
 				.get(function(err, res){
 					if(err) reject(err)
