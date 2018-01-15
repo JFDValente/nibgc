@@ -30,7 +30,7 @@ module.exports = function(app){
 			TABELA_MEMBRO : 'Membro',
 			TABELA_MINISTERIO : 'Ministerio',
 			TABELA_GRUPO : 'Grupo',
-			TABELA_ATUAEM: 'Atuaem'
+			TABELA_ATUAEM: 'AtuaEm'
 		}
 	}
 }

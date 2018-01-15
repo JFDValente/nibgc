@@ -42,7 +42,8 @@ module.exports = function(app) {
 		membroDAO.search(attr,expression)
 		.then(
 			res => {
-				response.send(res)
+				response.send({membros:res})
+				console.log(res)
 			},
 			err => {
 				console.error("get /api/membros/search/query\n")

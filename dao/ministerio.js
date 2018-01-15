@@ -74,13 +74,14 @@
 		//funcao incompleta
 		findMembros: function(id) {
 			return new Promise((resolve, reject) => {
-				db.where({'idMinisterio =': id})
+				db.distinct()
 				.select(['m.id','m.nome','m.contato'])
 				.from(TABELA_MEMBRO + ' m')
 				.join(TABELA_ATUAEM + ' a','m.id=a.idMembro')
+				.where({'idMinisterio =': id})
 				.get(function(err, res){
 					if(err) reject(err)
-					else resolve(res[0])
+					else resolve(res)
 				})
 			})
 		}
