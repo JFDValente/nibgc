@@ -43,7 +43,6 @@ module.exports = function(app) {
 		.then(
 			res => {
 				response.send({rows:res})
-				console.log(res)
 			},
 			err => {
 				console.error("get /api/membros/search/query\n")
