@@ -72,13 +72,15 @@
 		},
 
 		//funcao incompleta
-		findMembros: function(id) {
+		findMembros: function(id,ano,status=[1,2,3]) {
+			console.log(status)
 			return new Promise((resolve, reject) => {
 				db.distinct()
 				.select(['m.id','m.nome','m.contato'])
 				.from(TABELA_MEMBRO + ' m')
 				.join(TABELA_ATUAEM + ' a','m.id=a.idMembro')
-				.where({'idMinisterio =': id})
+				.where({'idMinisterio =': id,'ano': ano})
+				.where_in('a.status',status)
 				.get(function(err, res){
 					if(err) reject(err)
 					else resolve(res)
