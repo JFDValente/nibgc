@@ -39,7 +39,7 @@ module.exports = function(app) {
 		let attr = request.query.attr
 		let expression = request.query.expression
 
-		grupoDAO.search(attr,expression)
+		ministerioDAO.search(attr,expression)
 		.then(
 			res => {
 				response.json(res)
@@ -98,7 +98,33 @@ module.exports = function(app) {
 			}
 		)
 	})
+/*
+	//matricular membro recebendo um JSON com idMembro e idMinisterio
+	app.post("/api/ministerios/matricula", function(request, response){
 
+		let body = request.body
+
+
+
+		ministerioDAO.create(body)
+		.then(
+			res => {
+				body.id = res.insertId
+				//app.get("socket").emit("create ministerio", body)
+
+				response.send({
+					success:true,
+					message: "cadastro realizado com sucesso"
+				})
+			},
+			err => {
+				console.error("post /api/ministerios\n")
+				console.error(err)
+				response.send({ message: "Ocorreu um erro" })
+			}
+		)
+	})
+*/
 	app.put("/api/ministerios", function(request, response){
 
 		let body = request.body

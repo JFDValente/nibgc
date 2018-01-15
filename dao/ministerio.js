@@ -36,7 +36,7 @@
 
 		get: function() {
 			return new Promise((resolve, reject) => {
-				db.select(['mi.id','mi.nome as nomeMinisterio','m.id as idLider','m.nome as nomeLider'])
+				db.select(['mi.id','mi.nome','m.id as idLider','m.nome as nomeLider'])
 				.from(TABELA_MINISTERIO + ' mi')
 				.join(TABELA_MEMBRO + ' m','mi.idLider=m.id')
 				.order_by('mi.id','desc')
@@ -73,7 +73,7 @@
 
 		//funcao incompleta
 		findMembros: function(id,ano,status=[1,2,3]) {
-			console.log(status)
+			//console.log(status)
 			return new Promise((resolve, reject) => {
 				db.distinct()
 				.select(['m.id','m.nome','m.contato'])
@@ -82,6 +82,15 @@
 				.where({'idMinisterio =': id,'ano': ano})
 				.where_in('a.status',status)
 				.get(function(err, res){
+					if(err) reject(err)
+					else resolve(res)
+				})
+			})
+		},
+
+		matricularMembro: function(data) {
+			return new Promise((resolve, reject) => {
+				db.insert(TABELA_ATUAEM, data, function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
