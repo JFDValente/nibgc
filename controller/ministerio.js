@@ -98,15 +98,19 @@ module.exports = function(app) {
 			}
 		)
 	})
-/*
+
 	//matricular membro recebendo um JSON com idMembro e idMinisterio
 	app.post("/api/ministerios/matricula", function(request, response){
 
 		let body = request.body
+		let hoje = new Date()
 
+		body.status=1
+		body.ano = hoje.getFullYear()
+		
+		console.log(body);
 
-
-		ministerioDAO.create(body)
+		ministerioDAO.matricularMembro(body)
 		.then(
 			res => {
 				body.id = res.insertId
@@ -118,13 +122,13 @@ module.exports = function(app) {
 				})
 			},
 			err => {
-				console.error("post /api/ministerios\n")
+				console.error("post /api/ministerios/matricula\n")
 				console.error(err)
 				response.send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
-*/
+
 	app.put("/api/ministerios", function(request, response){
 
 		let body = request.body
