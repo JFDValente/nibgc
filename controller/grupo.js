@@ -52,6 +52,24 @@ module.exports = function(app) {
 		)
 	})
 
+	//retornar todos os membros de um determinado ministério, cujo id é passado como parâmetro
+	app.get("/api/grupos/:id/membros", function(request, response){
+
+		let id = request.params.id
+
+		grupoDAO.findMembros(id)
+		.then(
+			res => {
+				response.send(res)
+			},
+			err => {
+				console.error("get /api/grupo/:id/membros\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
 	app.post("/api/grupos", function(request, response){
 
 		let body = request.body
@@ -106,7 +124,6 @@ module.exports = function(app) {
 		.then(
 			res => {
 				//app.get("socket").broadcast.emit("delete grupospequeno", id)
-
 				response.send({
 					success:true,
 					message: "cadastro excluído com sucesso"

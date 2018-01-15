@@ -37,10 +37,9 @@ module.exports = function(app){
 		get: function() {
 			return new Promise((resolve, reject) => {
 				db.select(['g.id','m.id as idLider','m.nome as nomeLider','g.localDeReuniao'])
-				.from(TABELA_GRUPO + ' g')
 				.join(TABELA_MEMBRO + ' m','g.idLider=m.id')
 				.order_by('g.id','desc')
-				.get(function(err, res){
+				.get(TABELA_GRUPO + ' g',function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
@@ -61,13 +60,24 @@ module.exports = function(app){
 			})
 		},
 
-
 		find: function(id) {
 			return new Promise((resolve, reject) => {
 				db.where({ 'id =': id})
 				.get(TABELA_GRUPO, function(err, res){
 					if(err) reject(err)
 					else resolve(res[0])
+				})
+			})
+		},
+
+		findMembros: function(id) {
+			return new Promise((resolve, reject) => {
+				db.select(['m.id','m.nome','m.contato'])
+				.from(TABELA_MEMBRO + ' m')
+				.where({'m.idGrupo =': id})
+				.get(function(err, res){
+					if(err) reject(err)
+					else resolve(res)
 				})
 			})
 		}
