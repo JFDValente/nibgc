@@ -1,6 +1,6 @@
 app.filter("filtro", function(){
 
-	return function(items, term, property) {			
+	return function(items, term, property) {
 
 		if(!term.length) return items
 
@@ -17,7 +17,7 @@ app.filter("filtro", function(){
 							.replace("ç","c")
 
 			formated = formated.toUpperCase()
-			term = term.toUpperCase()			
+			term = term.toUpperCase()
 
 			if(formated.indexOf(term) > -1) {
 				filtered.push(items[i])
@@ -30,18 +30,20 @@ app.filter("filtro", function(){
 
 app.directive("filter", function(){
 	return {
-		restrict: "EA",	
+		restrict: "EA",
+		replace: true,
+		transclude: true,
 		scope: {
 			placeholder: "@",
-			model: "="			
+			ngModel: "="
 		},
 		template: `
 			<form class="ui input"">
-			  <input 
-			  	type="text" 
-			  	placeholder="{{ placeholder || 'Pesquisar..' }}" 
-			  	ng-model="model"
-			  	autofocus>			  
+			  <input
+			  	type="text"
+			  	placeholder="{{ placeholder || 'Pesquisar..' }}"
+			  	ng-model="ngModel"
+			  	autofocus>
 			</form>
 		`
 	}

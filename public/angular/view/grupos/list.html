@@ -1,0 +1,42 @@
+
+<div class="ui two column grid">
+	<div class="column">
+		<h2>Grupos</h2>
+	</div>
+	<div class="column">
+		<a ng-href="/grupos/cadastro" class="ui right labeled icon button">
+			Cadastrar
+			<i class="right plus icon"></i>
+		</a>
+
+		<filter ng-model="pesquisa" placeholder="nome do líder.."></filter>
+	</div>
+</div>
+
+<message ng-if="message.length" text="{{ message }}" color="olive"></message>
+<loader model="loading"></loader>
+
+<table class="ui table celled" ng-if="grupos.length && !loading">
+	<thead>
+		<th>Líder</th>
+		<th>Local de reunião</th>
+		<th>#</th>
+	</thead>
+	<tr ng-repeat="m in grupos | filter: pesquisa : id">
+		<td>
+			<a ng-href="/grupos/{{ m.idLider }}">{{ m.nomeLider }}</a>
+		</td>
+		<td>{{ m.localDeReuniao }}</td>
+		<td>
+			<a ng-href="/grupos/{{ m.id }}" class="ui button">
+				Visualizar
+			</a>
+			<a href="/grupos/{{ m.id }}" class="ui button">
+				Editar
+			</a>
+			<button class="ui button" ng-click="onDelete(m.id)">
+				Excluir
+			</button>
+		</td>
+	</tr>
+</table>

@@ -15,9 +15,13 @@ app.config(function($routeProvider, $locationProvider){
 		templateUrl: 'angular/view/membros/list.html',
 		controller: 'membros'
 	})
-	.when("/membros/cadastro", {
-		templateUrl: 'angular/view/membros/form.html',
-		controller: 'membrosForm'
+	.when("/grupos", {
+		templateUrl: 'angular/view/grupos/list.html',
+		controller: 'grupos'
+	})
+	.when("/ministerios", {
+		templateUrl: 'angular/view/ministerios/list.html',
+		controller: 'membros'
 	})
 	.when('/logout', {
 		redirectTo: function() {
