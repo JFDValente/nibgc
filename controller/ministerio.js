@@ -152,12 +152,11 @@ module.exports = function(app) {
 		)
 	}),
 
-	app.put("/api/ministerios", function(request, response){
+	app.put("/api/ministerios/matricula", function(request, response){
 
 		let body = request.body
-		let id = request.body.id
-
-		ministerioDAO.update(body, id)
+		
+		ministerioDAO.updateMatricula(body)
 		.then(
 			res => {
 				//app.get("socket").emit("update ministerio", body)

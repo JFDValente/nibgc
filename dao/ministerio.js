@@ -1,5 +1,5 @@
  module.exports = function(app){
- 	
+
 	const TABELA_MINISTERIO = app.config.database.tabelas.TABELA_MINISTERIO
 	const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
 	const TABELA_ATUAEM = app.config.database.tabelas.TABELA_ATUAEM
@@ -99,7 +99,18 @@
 
 		deleteMatricula: function(idMinisterio,idMembro,ano) {
 			return new Promise((resolve, reject) =>{
-				db.delete(TABELA_ATUAEM, {'idMinisterio': idMinisterio,'idMembro': idMembro, 'ano': ano}, function(err, res) {
+				db.delete(TABELA_ATUAEM, {'idMinisterio': idMinisterio,
+						  'idMembro': idMembro, 'ano': ano}, function(err, res) {
+					if(err) reject(err)
+					else resolve(res)
+				})
+			})
+		},
+
+		updateMatricula: function(data) {
+			return new Promise((resolve, reject) =>{
+				db.update(TABELA_ATUAEM, data, {'idMinisterio': data.idMinisterio,
+						  'idMembro': data.idMembro, 'ano': data.ano}, function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})
