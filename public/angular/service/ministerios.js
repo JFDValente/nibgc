@@ -36,11 +36,16 @@ app.service("Ministerios", function($http, listener){
 	return {
 
 		find: (id) => {
-			for(let i = 0; i < ministerios.length; i++) {
-				if(id == ministerios[i].id) {
-					return ministerios[i]
-				}
-			}
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "GET",
+					url: `/api/ministerios/${id}`
+				})
+				.then(
+					res => resolve(res.data),
+					err => reject(err)
+				)
+			})
 		},
 
 		get: () => {
@@ -128,6 +133,48 @@ app.service("Ministerios", function($http, listener){
 						res.data.forEach(item => ministerios.push(item))
 						resolve(res.data)
 					},
+					err => reject(err)
+				)
+			})
+		},
+
+		matricula: (idMembro, idMinisterio) => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "POST",
+					url: "/api/ministerios/matricula",
+					data: { idMembro: idMembro, idMinisterio: idMinisterio }
+				})
+				.then(
+					res => resolve(),
+					err => reject(err)
+				)
+			})
+		},
+
+		cancelaMatricula: (idMembro, idMinisterio) => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "DELETE",
+					url: "/api/ministerios/matricula",
+					data: { idMembro: idMembro, idMinisterio: idMinisterio }
+				})
+				.then(
+					res => resolve(),
+					err => reject(err)
+				)
+			})
+		},
+
+		atualizaPrioridade: (matricula) => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "PUT",
+					url: "/api/ministerios/matricula/prioridade",
+					data: matricula
+				})
+				.then(
+					res => resolve(),
 					err => reject(err)
 				)
 			})

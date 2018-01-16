@@ -1,8 +1,19 @@
+<div class="ui two column centered grid" style="margin-bottom: .5em;">
+	<div class="row">
+		<div class="column" style="text-align: center;">
+			<h3>{{ ministerio.nome | uppercase }}</h3>
+			<back class="red">Voltar</back>
+		</div>
+	</div>
+</div>
+
 <form class="ui form" ng-submit="onSubmit($event)">
 	<div class="field">
 		<div class="ui massive fluid icon input" ng-class="{ 'loading': loading }">
-			<input autocomplete="off" autofocus
-				type="search" placeholder="Pesquisar nome.." ng-model="search">
+			<input
+				placeholder="Pesquisar em {{ ministerio.nome }}.."
+				autocomplete="off" autofocus
+				type="search" ng-model="search">
 			<i class="search icon"></i>
 		</div>
 	</div>
@@ -16,15 +27,29 @@
 	<th>Líder</th>
 	<th>#</th>
 </thead>
-<tr ng-repeat="m in membros">
+<tr ng-repeat="m in membros" ng-class="{ 'positive': m.status }">
 	<td>{{ m.nome }}</td>
 	<td>{{ m.nomeLider }}</td>
 	<td>
-		<button class="ui positive button" ng-click="cancelar(m.id)">
+		<button
+			ng-click="matricula(m, $event)" ng-if="!m.status"
+			class="ui positive button">
 			Inscrever
 		</button>
-		<button class="ui secondary button" ng-click="cancelar(m.id)">
+		<button
+			ng-click="cancelaMatricula(m, $event)" ng-if="m.status"
+			class="ui secondary button">
 			Cancelar Inscrição
+		</button>
+		<button
+			ng-click="alteraPrioridade(m, $event, true)" ng-if="m.status && !m.prioridade"
+			class="ui orange button">
+			Marcar prioridade
+		</button>
+		<button
+			ng-click="alteraPrioridade(m, $event, false)" ng-if="m.status && m.prioridade"
+			class="ui red button">
+			Remover prioridade
 		</button>
 	</td>
 </tr>

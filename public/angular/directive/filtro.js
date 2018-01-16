@@ -38,7 +38,7 @@ app.directive("filter", function(){
 			ngModel: "="
 		},
 		template: `
-			<form class="ui input"">
+			<form class="ui input fluid">
 			  <input
 			  	type="text"
 			  	placeholder="{{ placeholder || 'Pesquisar..' }}"

@@ -97,6 +97,29 @@ app.service("Membros", function($http){
 					err => reject(err)
 				)
 			})
+		},
+
+		searchMinisterio: (attr, expression, idMinisterio) => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "GET",
+					url: "/api/membros/search/ministerio/query",
+					params: {
+						attr: attr,
+						expression: expression,
+						idMinisterio: idMinisterio,
+						ano: new Date().getFullYear()
+					}
+				})
+				.then(
+					res => {
+						membros = []
+						res.data.rows.forEach(item => membros.push(item))
+						resolve(membros)
+					},
+					err => reject(err)
+				)
+			})
 		}
 	}
 })

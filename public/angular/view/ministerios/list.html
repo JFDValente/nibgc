@@ -1,16 +1,17 @@
-
-<div class="ui two column grid">
-	<div class="column">
-		<h2>Ministérios</h2>
+<div class="ui two column centered grid" style="margin-bottom: .5em;">
+	<div class="row">
+		<div class="column" style="text-align: center;">
+			<h3>Ministérios</h3>
+			<a ng-href="/ministerios/cadastro" class="ui right labeled icon button">
+				Cadastrar
+				<i class="right plus icon"></i>
+			</a>
+		</div>
 	</div>
-	<div class="column">
-		<a ng-href="/ministerios/cadastro" class="ui right labeled icon button">
-			Cadastrar
-			<i class="right plus icon"></i>
-		</a>
+</div>
 
-		<filter ng-model="pesquisa" placeholder="ministério.."></filter>
-	</div>
+<div class="sixteen wide column"></div>
+	<filter ng-model="pesquisa" placeholder="Pesquisar ministério.."></filter>
 </div>
 
 <message ng-if="message.length" text="{{ message }}" color="olive"></message>
@@ -23,9 +24,9 @@
 		<th>#</th>
 	</thead>
 	<tr ng-repeat="m in ministerios | filtro: pesquisa : 'nome'">
-		<td>{{ m.nome }}</td>
+		<td>{{ m.nome | uppercase }}</td>
 		<td>
-			<a ng-href="/membros/{{ m.idLider }}">{{ m.nomeLider }}</a>
+			<a ng-href="/membros/{{ m.idLider }}">{{ m.nomeLider | uppercase }}</a>
 		</td>
 		<td>
 			<a ng-href="/ministerios/{{ m.id }}" class="ui icon button" title="Visualizar">

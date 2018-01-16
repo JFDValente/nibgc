@@ -41,8 +41,14 @@ app.controller("ministeriosForm", function($scope, Ministerios, Dialog, $routePa
 	$scope.ministerio = {}
 
 	if($routeParams.id) {
-		$scope.ministerio = Ministerios.find(parseInt($routeParams.id)) || {}
-		$scope.lider = { id: $scope.ministerio.idLider, nome: $scope.ministerio.nomeLider }
+		Ministerios.find(parseInt($routeParams.id)).then(
+			data => {
+				$scope.ministerio = data
+				$scope.lider = { id: $scope.ministerio.idLider, nome: $scope.ministerio.nomeLider }
+				$scope.$apply()
+			},
+			err => Dialog.error()
+		)
 	}
 
 	$scope.onChange = function(item) {
@@ -55,14 +61,32 @@ app.controller("ministeriosForm", function($scope, Ministerios, Dialog, $routePa
 			$scope.message = "Preencha os campos corretamente"
 		}
 		else {
-			$scope.ministerio.idLider = $scope.lider.id
 
-			Ministerios.create($scope.ministerio).then(
-				res => {
-					Dialog.success("Cadastro concluído")
-					$scope.ministerio = {}
-				}
-			)
+			let data = {
+				id: $scope.ministerio.id,
+				dadosReuniao: $scope.ministerio.dadosReuniao,
+				descricao: $scope.ministerio.descricao,
+				nome: $scope.ministerio.nome,
+				idLider: $scope.lider.id
+			}
+
+			if(!$routeParams.id) {
+				Ministerios.create(data).then(
+					res => {
+						Dialog.success("Cadastro concluído")
+						$scope.ministerio = {}
+						$scope.lider = {}
+						$scope.$apply()
+					},
+					err => Dialog.error()
+				)
+			}
+			else {
+				Ministerios.update(data).then(
+					res => Dialog.success("Dados atualizados"),
+					err => Dialog.error()
+				)
+			}
 		}
 	}
 })

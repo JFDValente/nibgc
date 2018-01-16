@@ -4,41 +4,38 @@
 
 	<div class="fields">
 
-		<div class="field">
-			<label>Nome</label>
-			<input type="text" autocomplete="off" ng-model="ministerio.nome">
+		<div class="field wide four">
+			<label for="nome">Nome</label>
+			<input	required name="nome" placeholder="Organização de culto"
+				ng-class="{'error': form.nome.$invalid && form.$submitted}"
+				type="text" autocomplete="off" ng-model="ministerio.nome">
+		</div>
+
+		<div class="field wide six">
+			<label for="descricao">Descrição</label>
+			<input autocomplete="off" ng-model="ministerio.descricao"
+				type="text" name="descricao" placeholder="Organizar o culto">
+		</div>
+	</div>
+
+	<div class="fields">
+		<div class="field wide six">
+			<label for="dadosReuniao">Informações</label>
+			<input autocomplete="off" ng-model="ministerio.dadosReuniao"
+				type="text" name="dadosReuniao" placeholder="Reuniões aos domingos">
 		</div>
 
 		<div class="field wide four">
 			<label>Líder</label>
 			<dropdown-remote
 				ng-model="lider.nome" change="onChange(item)" items="lideres"
-				url="/api/ministerios/search/query" text="nome" value="id">
+				url="/api/membros/search/query" text="nome" value="id">
 			</dropdown-remote>
 		</div>
 	</div>
 
-	<div class="fields">
-		<div class="field wide six"
-			ng-class="{
-				'error': form.dadosReuniao.$invalid && form.$submitted
-			}">
-			<label for="localDeReuniao">Informações</label>
-			<input autocomplete="off" required ng-model="ministerio.dadosReuniao"
-				type="text" name="dadosReuniao" placeholder="Reuniões aos domingos">
-		</div>
-
-		<div class="field wide six"
-			ng-class="{
-				'error': form.descricao.$invalid && form.$submitted
-			}">
-			<label for="descricao">Descrição</label>
-			<input autocomplete="off" required ng-model="ministerio.descricao"
-				type="text" name="descricao" placeholder="Reuniões aos domingos">
-		</div>
-	</div>
-
 	<div class="field">
+		<back class="red">voltar</back>
 		<button class="ui button">
 			Salvar
 		</button>

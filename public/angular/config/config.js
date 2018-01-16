@@ -4,6 +4,10 @@ const app = angular.module("nibgc", [
 
 const socket = io()
 
+swal.setDefaults({
+	allowOutsideClick: false
+})
+
 app.config(function($routeProvider, $locationProvider){
 
 	$routeProvider
