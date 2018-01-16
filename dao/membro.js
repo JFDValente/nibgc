@@ -68,7 +68,7 @@ module.exports = function(app){
 		searchMatricula: function(attr,expression,idMinisterio,ano) {
 			return new Promise((resolve, reject) => {
 				let sql= `
-					select m.id,m.nome,m.contato,l.id as idLider,l.nome as nomeLider,
+					select m.id as idMembro,m.nome,m.contato,l.id as idLider,l.nome as nomeLider,
 						   (SELECT distinct status from AtuaEm a 
 						    where idMinisterio=${idMinisterio} and idMembro=m.id and ano=${ano}) as status 
 					from Membro m 
