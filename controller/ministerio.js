@@ -108,7 +108,7 @@ module.exports = function(app) {
 		body.status = 1
 		body.ano = hoje.getFullYear()
 		
-		console.log(body);
+		//console.log(body);
 
 		ministerioDAO.matricula(body)
 		.then(
@@ -150,7 +150,7 @@ module.exports = function(app) {
 				response.send({ message: "Ocorreu um erro" })
 			}
 		)
-	})
+	}),
 
 	app.delete("/api/ministerios", function(request, response){
 
@@ -168,6 +168,30 @@ module.exports = function(app) {
 			},
 			err => {
 				console.error("delete /api/ministerios\n")
+				console.error(err)
+				response.status(500).send({ message: "Ocorreu um erro" })
+			}
+		)
+	}),
+
+	app.delete("/api/ministerios/matricula", function(request, response){
+
+		let idMinisterio = request.body.idMinisterio
+		let idMembro = request.body.idMembro
+		let ano = request.body.ano
+
+		ministerioDAO.deleteMatricula(idMinisterio,idMembro,ano)
+		.then(
+			res => {
+				//app.get("socket").broadcast.emit("delete ministerio", id)
+
+				response.send({
+					success:true,
+					message: "cadastro excluído com sucesso"
+				})
+			},
+			err => {
+				console.error("delete /api/ministerios/matricula\n")
 				console.error(err)
 				response.status(500).send({ message: "Ocorreu um erro" })
 			}

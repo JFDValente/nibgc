@@ -65,7 +65,7 @@ module.exports = function(app){
 			})
 		},
 
-		searchMatricula: function(attr,expression,idMinisterio,ano=(new Date()).getFullYear()) {
+		searchMatricula: function(attr,expression,idMinisterio,ano) {
 			return new Promise((resolve, reject) => {
 				let sql= `
 					select m.id,m.nome,m.contato,l.id as idLider,l.nome as nomeLider,

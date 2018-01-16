@@ -1,5 +1,5 @@
  module.exports = function(app){
-
+ 	
 	const TABELA_MINISTERIO = app.config.database.tabelas.TABELA_MINISTERIO
 	const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
 	const TABELA_ATUAEM = app.config.database.tabelas.TABELA_ATUAEM
@@ -79,7 +79,7 @@
 				.select(['m.id','m.nome','m.contato'])
 				.from(TABELA_MEMBRO + ' m')
 				.join(TABELA_ATUAEM + ' a','m.id=a.idMembro')
-				.where({'idMinisterio =': id,'ano': ano})
+				.where({'idMinisterio': id,'ano': ano})
 				.where_in('a.status',status)
 				.get(function(err, res){
 					if(err) reject(err)
@@ -95,6 +95,15 @@
 					else resolve(res)
 				})
 			})
-		}
+		},
+
+		deleteMatricula: function(idMinisterio,idMembro,ano) {
+			return new Promise((resolve, reject) =>{
+				db.delete(TABELA_ATUAEM, {'idMinisterio': idMinisterio,'idMembro': idMembro, 'ano': ano}, function(err, res) {
+					if(err) reject(err)
+					else resolve(res)
+				})
+			})
+		},
 	}
 }
