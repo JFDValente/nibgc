@@ -68,14 +68,12 @@ module.exports = function(app){
 		searchMatricula: function(attr,expression,idMinisterio,ano) {
 			return new Promise((resolve, reject) => {
 				let sql= `
-					select m.id as idMembro,m.nome,m.contato,l.id as idLider,l.nome as nomeLider,
-						   (SELECT distinct status from AtuaEm a 
-						    where idMinisterio=${idMinisterio} and idMembro=m.id and ano=${ano}) as status,
-						    (SELECT distinct prioridade from AtuaEm a 
-						    where idMinisterio=${idMinisterio} and idMembro=m.id and ano=${ano}) as prioridade 
+					select m.id as idMembro,m.nome,m.contato,l.id as idLider,
+							l.nome as nomeLider, a.status, a.prioridade 
 					from Membro m 
 					left join Grupo g on(m.idGrupo=g.id) 
 					left join Membro l on(g.idLider=l.id)
+					left join AtuaEm a on(m.id=a.idMembro and a.idMinisterio=${idMinisterio} and a.ano=${ano}) 
 					where m.${attr} like \'%${expression}%\' 
 					order by m.nome desc`
 				//console.log(sql)
