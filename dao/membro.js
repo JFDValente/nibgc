@@ -72,7 +72,7 @@ module.exports = function(app){
 						   (SELECT distinct status from AtuaEm a 
 						    where idMinisterio=${idMinisterio} and idMembro=m.id and ano=${ano}) as status,
 						    (SELECT distinct prioridade from AtuaEm a 
-						    where idMinisterio=${idMinisterio} and idMembro=m.id and ano=${ano}) as prioridade, 
+						    where idMinisterio=${idMinisterio} and idMembro=m.id and ano=${ano}) as prioridade 
 					from Membro m 
 					left join Grupo g on(m.idGrupo=g.id) 
 					left join Membro l on(g.idLider=l.id)
