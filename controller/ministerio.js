@@ -178,7 +178,7 @@ module.exports = function(app) {
 
 		let idMinisterio = request.body.idMinisterio
 		let idMembro = request.body.idMembro
-		let ano = request.body.ano
+		let ano = new Date().getFullYear()
 
 		ministerioDAO.deleteMatricula(idMinisterio,idMembro,ano)
 		.then(
