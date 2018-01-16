@@ -155,7 +155,7 @@ module.exports = function(app) {
 	app.put("/api/ministerios/matricula", function(request, response){
 
 		let body = request.body
-		
+
 		ministerioDAO.updateMatricula(body)
 		.then(
 			res => {
@@ -172,6 +172,40 @@ module.exports = function(app) {
 				response.send({ message: "Ocorreu um erro" })
 			}
 		)
+	}),
+
+	app.put("/api/ministerios/matricula/prioridade", function(request, response){
+
+		let body = request.body
+
+		function erro(){
+			console.error("put /api/ministerios\n")
+			console.error(err)
+			response.status(500).send({ message: "Ocorreu um erro" })
+
+		}
+		
+		function atualiza(){
+			ministerioDAO.updateMatricula(body)
+			.then(
+				res => {
+					response.send({
+						success:true,
+						message: "dados atualizados com sucesso"
+					})
+				},
+				err => erro()
+			)
+		}
+
+
+		if (body.prioridade) {
+			ministerioDAO.trocarPrioridade(body).then(
+				res => atualiza(),
+				err => erro()	
+			)
+		}
+		else atualiza()
 	}),
 
 	app.delete("/api/ministerios", function(request, response){
