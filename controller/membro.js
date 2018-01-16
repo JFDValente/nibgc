@@ -52,6 +52,27 @@ module.exports = function(app) {
 		)
 	})
 
+	//retonar os membros de acordo com um parâmetro qualquer, definido pelo frontend, e com o status de inscrição no ministerio
+	app.get("/api/membros/search/ministerio/query", function(request, response){
+
+		let attr = request.query.attr
+		let expression = request.query.expression
+		let idMinisterio = request.query.idMinisterio
+		let ano = request.query.ano
+
+		membroDAO.searchMatricula(attr,expression,idMinisterio,ano)
+		.then(
+			res => {
+				response.send({rows:res})
+			},
+			err => {
+				console.error("get /api/membros/search/ministerio/query\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
 	app.post("/api/membros", function(request, response){
 
 		let body = request.body

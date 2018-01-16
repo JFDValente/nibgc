@@ -2,6 +2,7 @@
 module.exports = function(app){
 	const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
 	const TABELA_GRUPO = app.config.database.tabelas.TABELA_GRUPO
+	const TABELA_ATUAEM = app.config.database.tabelas.TABELA_ATUAEM
 	let db = app.config.database.db()
 
 	return {
@@ -58,6 +59,25 @@ module.exports = function(app){
 				.like('m.'+attr,expression)
 				.order_by('m.id','desc')
 				.get(function(err, res){
+					if(err) reject(err)
+					else resolve(res)
+				})
+			})
+		},
+
+		searchMatricula: function(attr,expression,idMinisterio,ano=(new Date()).getFullYear()) {
+			return new Promise((resolve, reject) => {
+				let sql= `
+					select m.id,m.nome,m.contato,l.id as idLider,l.nome as nomeLider,
+						   (SELECT distinct status from AtuaEm a 
+						    where idMinisterio=${idMinisterio} and idMembro=m.id and ano=${ano}) as status 
+					from Membro m 
+					left join Grupo g on(m.idGrupo=g.id) 
+					left join Membro l on(g.idLider=l.id)
+					where m.${attr} like \'%${expression}%\' 
+					order by m.nome desc`
+				//console.log(sql)
+				db.query(sql,function(err, res){
 					if(err) reject(err)
 					else resolve(res)
 				})

@@ -88,7 +88,7 @@
 			})
 		},
 
-		matricularMembro: function(data) {
+		matricula: function(data) {
 			return new Promise((resolve, reject) => {
 				db.insert(TABELA_ATUAEM, data, function(err, res){
 					if(err) reject(err)

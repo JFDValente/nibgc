@@ -105,12 +105,12 @@ module.exports = function(app) {
 		let body = request.body
 		let hoje = new Date()
 
-		body.status=1
+		body.status = 1
 		body.ano = hoje.getFullYear()
 		
 		console.log(body);
 
-		ministerioDAO.matricularMembro(body)
+		ministerioDAO.matricula(body)
 		.then(
 			res => {
 				body.id = res.insertId
