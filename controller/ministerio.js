@@ -152,6 +152,29 @@ module.exports = function(app) {
 		)
 	}),
 
+	app.put("/api/ministerios", function(request, response){
+
+		let body = request.body
+		let id = request.body.id
+
+		ministerioDAO.update(body, id)
+		.then(
+			res => {
+				//app.get("socket").emit("update ministerio", body)
+
+				response.send({
+					success:true,
+					message: "dados atualizados com sucesso"
+				})
+			},
+			err => {
+				console.error("put /api/ministerios\n")
+				console.error(err)
+				response.send({ message: "Ocorreu um erro" })
+			}
+		)
+	}),
+
 	app.delete("/api/ministerios", function(request, response){
 
 		let id = request.body.id
@@ -178,7 +201,7 @@ module.exports = function(app) {
 
 		let idMinisterio = request.body.idMinisterio
 		let idMembro = request.body.idMembro
-		let ano = new Date().getFullYear()
+		let ano = request.body.ano || new Date().getFullYear()
 
 		ministerioDAO.deleteMatricula(idMinisterio,idMembro,ano)
 		.then(
