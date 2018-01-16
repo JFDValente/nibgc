@@ -94,7 +94,7 @@ module.exports = function(app) {
 			err => {
 				console.error("post /api/ministerios\n")
 				console.error(err)
-				response.send({ message: "Ocorreu um erro" })
+				response.status(500).send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
@@ -124,7 +124,7 @@ module.exports = function(app) {
 			err => {
 				console.error("post /api/ministerios/matricula\n")
 				console.error(err)
-				response.send({ message: "Ocorreu um erro" })
+				response.status(500).send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
@@ -147,7 +147,7 @@ module.exports = function(app) {
 			err => {
 				console.error("put /api/ministerios\n")
 				console.error(err)
-				response.send({ message: "Ocorreu um erro" })
+				response.status(500).send({ message: "Ocorreu um erro" })
 			}
 		)
 	}),
@@ -169,7 +169,7 @@ module.exports = function(app) {
 			err => {
 				console.error("put /api/ministerios\n")
 				console.error(err)
-				response.send({ message: "Ocorreu um erro" })
+				response.status(500).send({ message: "Ocorreu um erro" })
 			}
 		)
 	}),

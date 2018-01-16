@@ -92,7 +92,7 @@ module.exports = function(app) {
 			err => {
 				console.error("post /api/membros\n")
 				console.error(err)
-				response.send({ message: "Ocorreu um erro" })
+				response.status(500).send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
@@ -115,7 +115,7 @@ module.exports = function(app) {
 			err => {
 				console.error("put /api/membros\n")
 				console.error(err)
-				response.send({ message: "Ocorreu um erro" })
+				response.status(500).send({ message: "Ocorreu um erro" })
 			}
 		)
 	})
