@@ -63,8 +63,10 @@
 
 		find: function(id) {
 			return new Promise((resolve, reject) => {
-				db.where({ 'id =': id})
-				.get(TABELA_MINISTERIO, function(err, res){
+				db.select(['mi.id','mi.nome','mi.dadosReuniao','mi.descricao','mi.idLider','m.nome as nomeLider'])
+				.where({ 'mi.id =': id})
+				.join(TABELA_MEMBRO + " m","mi.idLider=m.id")
+				.get(TABELA_MINISTERIO + " mi", function(err, res){
 					if(err) reject(err)
 					else resolve(res[0])
 				})
