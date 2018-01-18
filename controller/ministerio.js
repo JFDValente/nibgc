@@ -200,7 +200,7 @@ module.exports = function(app) {
 
 
 		if (body.prioridade) {
-			ministerioDAO.trocarPrioridade(body).then(
+			ministerioDAO.eliminaPrioridade(body).then(
 				res => atualiza(),
 				err => erro()	
 			)

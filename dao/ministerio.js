@@ -119,7 +119,7 @@
 			})
 		},
 
-		trocarPrioridade: function(data) {
+		eliminaPrioridade: function(data) {
 			return new Promise((resolve, reject) =>{
 				db.update(TABELA_ATUAEM, {prioridade: false}, {'idMembro': data.idMembro, 'ano': data.ano}, 
 						 function(err, res){
