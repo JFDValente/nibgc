@@ -35,7 +35,7 @@ app.controller("ministeriosFeira", function(
 
 	$scope.matricula = function(membro, $event) {
 		$($event.target).addClass("loading disabled")
-		Ministerios.matricula(membro.id, $scope.ministerio.id).then(
+		Ministerios.matricula(membro.idMembro, $scope.ministerio.id).then(
 			res => {
 				membro.status = STATUS_INSCRITO
 				$scope.$apply()
