@@ -108,7 +108,7 @@ module.exports = function(app) {
 		body.status = 1
 		body.ano = hoje.getFullYear()
 		
-		//console.log(body);
+		console.log(body) //teste
 
 		ministerioDAO.matricula(body)
 		.then(

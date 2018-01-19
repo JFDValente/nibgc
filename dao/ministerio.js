@@ -1,4 +1,4 @@
- module.exports = function(app){
+module.exports = function(app){
 
 	const TABELA_MINISTERIO = app.config.database.tabelas.TABELA_MINISTERIO
 	const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO

@@ -42,7 +42,7 @@ app.controller("ministeriosFeira", function(
 				$($event.target).removeClass("loading disabled")
 			},
 			err => {
-				Dialog.error("Não foi posível concluir a inscrição. Informe o  suporte!")
+				Dialog.error("Não foi possível concluir a inscrição. Informe o  suporte!")
 				$($event.target).removeClass("loading disabled")
 			}
 		)
@@ -57,7 +57,7 @@ app.controller("ministeriosFeira", function(
 				$($event.target).removeClass("loading disabled")
 			},
 			err => {
-				Dialog.error("Não foi posível cancelar a inscrição")
+				Dialog.error("Não foi possível cancelar a inscrição")
 				$($event.target).removeClass("loading disabled")
 			}
 		)
