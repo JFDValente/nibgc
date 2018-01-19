@@ -63,7 +63,7 @@ module.exports = function(app) {
 			status = status.split(",")
 		}
 
-		ministerioDAO.findMembros(id,ano,status)
+		ministerioDAO.getMembros(id,ano,status)
 		.then(
 			res => {
 				response.send(res)

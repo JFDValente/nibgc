@@ -1,4 +1,7 @@
 module.exports = function(app){
+	const STATUS_MATRICULADO = 1
+	const STATUS_SELECIONADO = 2
+	const STATUS_CONFIRMADO = 3
 
 	const TABELA_MINISTERIO = app.config.database.tabelas.TABELA_MINISTERIO
 	const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
@@ -92,15 +95,39 @@ module.exports = function(app){
 		},
 
 		//funcao incompleta
-		findMembros: function(id,ano,status=[1,2,3]) {
+		getMembros: function(id,ano,status=[STATUS_MATRICULADO,STATUS_SELECIONADO,STATUS_CONFIRMADO]) {
 			//console.log(status)
 			return new Promise((resolve, reject) => {
 				connection(db => {
 					db.distinct()
-					.select(['m.id','m.nome','m.contato'])
+					.select(['m.id','m.nome','m.contato','a.prioridade','a.status'])
 					.from(TABELA_MEMBRO + ' m')
 					.join(TABELA_ATUAEM + ' a','m.id=a.idMembro')
 					.where({'idMinisterio': id,'ano': ano})
+					.where_in('a.status',status)
+					.get(function(err, res){
+						db.release()
+						if(err) reject(err)
+						else resolve(res)
+					})
+				})
+			})
+		},
+
+		getMembrosPorPrioridade: function(idMinisterio,ano,prioridade,status=[STATUS_MATRICULADO,STATUS_SELECIONADO,STATUS_CONFIRMADO]) {
+			//console.log(status)
+			return new Promise((resolve, reject) => {
+				connection(db => {
+					db.distinct()
+					.select(['m.id','m.nome','m.contato','a.prioridade','a.status'])
+					.from(TABELA_MEMBRO + ' m')
+					.join(TABELA_ATUAEM + ' a','m.id=a.idMembro')
+					.where({
+						'idMinisterio': idMinisterio,
+						'ano': ano,
+						'status': status,
+						'prioridade': prioridade
+					})
 					.where_in('a.status',status)
 					.get(function(err, res){
 						db.release()
