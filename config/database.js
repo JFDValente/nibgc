@@ -15,16 +15,16 @@ module.exports = function(app){
 
 	return{
 		db: function(){
-			let connection
+			let pool
 
 			try{
-				connection = queryBuilder.QueryBuilder(settings, 'mysql')
+				pool = queryBuilder.QueryBuilder(settings, 'mysql', 'pool')
 			}
 			catch(err){
 				console.error("err connection", err)
 			}
 
-			return connection
+			return pool.get_connection
 		},
 		tabelas:{
 			TABELA_MEMBRO : 'Membro',
