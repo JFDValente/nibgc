@@ -1,13 +1,13 @@
 app.controller("membros", function($scope, Membros, Dialog){
 
 	$scope.membros = []
-	$scope.pesquisa = ""
 	$scope.message = ""
-	$scope.loading = true
+	$scope.loading = false
 
-	$scope.onSearch = function(value) {
-		if(value.length) {
-			Membros.search("nome", value).then(
+	$scope.onSubmit = function() {
+		if($scope.search) {
+			$scope.loading = true
+			Membros.search("nome", $scope.search).then(
 				data => render(data),
 				err => {
 					console.log(err)

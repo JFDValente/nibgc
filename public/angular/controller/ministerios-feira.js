@@ -3,7 +3,6 @@ app.controller("ministeriosFeira", function(
 
 	const STATUS_INSCRITO = 3 //definição no banco de dados
 	$scope.search = ""
-	$scope.membros = []
 	$scope.loading = true
 	Ministerios.find($routeParams.id).then(
 		res => {
@@ -15,6 +14,7 @@ app.controller("ministeriosFeira", function(
 
 	$scope.onSubmit = function() {
 
+		$scope.membros = []
 		$scope.message = ""
 		$scope.loading = true
 

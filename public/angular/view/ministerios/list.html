@@ -1,16 +1,16 @@
-<div class="ui two column centered grid" style="margin-bottom: .5em;">
-	<div class="row">
-		<div class="column" style="text-align: center;">
-			<h3>Ministérios</h3>
-			<a ng-href="/ministerios/cadastro" class="ui right labeled icon button">
-				Cadastrar
-				<i class="right plus icon"></i>
-			</a>
-		</div>
+<div style="text-align: center;">
+	<h3>Ministérios</h3>
+	<div class="ui buttons">
+		<back class="red">Voltar</back>
+		<div class="or" data-text="ou"></div>
+		<a ng-href="/ministerios/cadastro" class="ui right labeled icon button">
+			Cadastrar
+			<i class="right plus icon"></i>
+		</a>
 	</div>
 </div>
 
-<div class="sixteen wide column"></div>
+<div class="sixteen wide column" style="margin-top: 2em;">
 	<filter ng-model="pesquisa" placeholder="Pesquisar ministério.."></filter>
 </div>
 
