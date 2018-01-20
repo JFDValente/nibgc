@@ -12,6 +12,7 @@
 
 		<div class="field">
 			<select
+				ng-change="onSubmit()"
 				ng-options="t.valor as t.nome for t in tipos"
 				class="ui dropdown" ng-model="pesquisa.tipo">
 			</select>
@@ -20,12 +21,6 @@
 		<div class="field">
 			<label for="prioridade">Prioridade</label>
 			<input type="checkbox" id="prioridade" ng-model="pesquisa.prioridade">
-		</div>
-
-		<div class="field">
-			<button class="ui button" type="submit">
-				Pesquisar
-			</button>
 		</div>
 	</div>
 </form>

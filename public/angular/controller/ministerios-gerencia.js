@@ -18,7 +18,7 @@ app.controller("ministeriosGerencia", function(
 		prioridade: false
 	}
 
-	function render(data) {
+	function render(data) {console.log(data);
 		$scope.membros = data
 		$scope.loading = false
 		$scope.$apply()
@@ -59,8 +59,7 @@ app.controller("ministeriosGerencia", function(
 		}
 	}
 
-	$scope.onSubmit = function($event) {
-		$event.preventDefault()
+	$scope.onSubmit = function() {		
 		$scope.membros = []
 		$scope.message = ""
 		$scope.loading = true
