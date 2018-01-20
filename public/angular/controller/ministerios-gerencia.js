@@ -18,6 +18,12 @@ app.controller("ministeriosGerencia", function(
 		prioridade: false
 	}
 
+	function render(data) {
+		$scope.membros = data
+		$scope.loading = false
+		$scope.$apply()
+	}
+
 	function getMinisterio() {
 		Ministerios.find($routeParams.id).then(
 			res => {
@@ -28,14 +34,26 @@ app.controller("ministeriosGerencia", function(
 	}
 
 	function getMembros() {
+		$scope.loading = true
+
 		if($scope.pesquisa.tipo == 0) {
-			Feira.pesquisaPorStatus($scope.ministerio.id, $scope.pesquisa.prioridade)
+			Feira.pesquisaTodos($scope.ministerio.id)
 			.then(
-				res => {console.log(res);
-					$scope.membros = res
-					$scope.loading = false
-					$scope.$apply()
-				},
+				res => render(res),
+				err => Dialog.error()
+			)
+		}
+		else if($scope.pesquisa.tipo == 3) {
+			Feira.pesquisaNaoDefinidos()
+			.then(
+				res => render(res),
+				err => Dialog.error()
+			)
+		}
+		else if($scope.pesquisa.tipo == 4) {
+			Feira.pesquisaNaoInscritos()
+			.then(
+				res => render(res),
 				err => Dialog.error()
 			)
 		}

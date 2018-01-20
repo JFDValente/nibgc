@@ -60,7 +60,7 @@ module.exports = function(app){
 				})
 			})
 		},
-		
+
 		search: function(attr,expression) {
 			return new Promise((resolve, reject) =>{
 				connection(db => {
@@ -85,13 +85,13 @@ module.exports = function(app){
 				connection(db => {
 					let sql= `
 						select m.id as idMembro,m.nome,m.contato,l.id as idLider,
-								l.nome as nomeLider, a.status, a.prioridade 
-						from Membro m 
-						left join Grupo g on(m.idGrupo=g.id) 
+								l.nome as nomeLider, a.status, a.prioridade
+						from Membro m
+						left join Grupo g on(m.idGrupo=g.id)
 						left join Membro l on(g.idLider=l.id)
-						left join AtuaEm a on(m.id=a.idMembro and a.idMinisterio=${idMinisterio} 
-											  and a.ano=${ano}) 
-						where m.${attr} like \'%${expression}%\' 
+						left join AtuaEm a on(m.id=a.idMembro and a.idMinisterio=${idMinisterio}
+											  and a.ano=${ano})
+						where m.${attr} like \'%${expression}%\'
 						order by m.nome desc`
 					//console.log(sql)
 					db.query(sql,function(err, res){
@@ -116,7 +116,7 @@ module.exports = function(app){
 			})
 		},
 
-		//retornar todos os membros que participaram da feira, mas não foram selecionados 
+		//retornar todos os membros que participaram da feira, mas não foram selecionados
 		//para estar em nenhum ministério
 		getMembrosInscritosSemMinisterio: function(ano){
 			//console.log(status)
@@ -125,12 +125,12 @@ module.exports = function(app){
 					let sql= `
 						select m.id as idMembro,m.nome,m.contato,l.id as idLider,
 								l.nome as nomeLider, null as status, null as prioridade,
-								'a.base' 
-						from Membro m 
-						left join Grupo g on(m.idGrupo=g.id) 
+								'a.base'
+						from Membro m
+						left join Grupo g on(m.idGrupo=g.id)
 						left join Membro l on(g.idLider=l.id)
-						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano}) 
-						where m.id in (select idMembro from AtuaEm where ano=${ano} and status=0) 
+						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano})
+						where m.id in (select idMembro from AtuaEm where ano=${ano} and status=0)
 						and m.id not in (select idMembro from AtuaEm where ano=${ano} and status=1)
 						order by m.nome desc`
 					db.query(sql, function(err, res){
@@ -150,11 +150,11 @@ module.exports = function(app){
 					let sql= `
 						select m.id as idMembro,m.nome,m.contato,l.id as idLider,
 								l.nome as nomeLider, null as status, null as prioridade,
-								'a.base' 
-						from Membro m 
-						left join Grupo g on(m.idGrupo=g.id) 
+								'a.base'
+						from Membro m
+						left join Grupo g on(m.idGrupo=g.id)
 						left join Membro l on(g.idLider=l.id)
-						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano}) 
+						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano})
 						where m.id not in (select idMembro from AtuaEm where ano=${ano})
 						order by m.nome desc`
 					db.query(sql, function(err, res){

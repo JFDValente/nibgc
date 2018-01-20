@@ -94,7 +94,7 @@ module.exports = function(app) {
 	//retonar os membros que se inscreveram na feira, mas não foram selecionados para nenhum ministerio
 	app.get("/api/membros/search/ministerio/naoinscrito/query", function(request, response){
 
-		let ano = request.query.ano
+		let ano = request.query.ano || new Date().getFullYear()
 
 		membroDAO.getMembrosNaoInscritos(ano)
 		.then(
