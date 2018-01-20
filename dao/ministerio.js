@@ -98,7 +98,7 @@ module.exports = function(app){
 			return new Promise((resolve, reject) => {
 				connection(db => {
 					db.distinct()
-					.select(['m.idMembro','m.nome','m.contato','a.prioridade',
+					.select(['m.id as idMembro','m.nome','m.contato','a.prioridade',
 						'a.status','l.id as idLider','l.nome as nomeLider'])
 					.from(TABELA_MEMBRO + ' m')
 					.join(TABELA_ATUAEM + ' a','m.id=a.idMembro')
