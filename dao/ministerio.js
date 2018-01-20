@@ -94,7 +94,6 @@ module.exports = function(app){
 		},
 
 		getMembros: function(idMinisterio,ano,prioridade,status) {
-			console.log(idMinisterio,ano,prioridade)
 			return new Promise((resolve, reject) => {
 				connection(db => {
 					db.distinct()
@@ -106,8 +105,7 @@ module.exports = function(app){
 					.join(TABELA_MEMBRO + ' l','g.idLider=l.id')
 					.where({
 						'a.idMinisterio': idMinisterio,
-						'a.ano': ano,
-						'a.prioridade': prioridade
+						'a.ano': ano
 					})
 					.get(function(err, res){
 						db.release()
