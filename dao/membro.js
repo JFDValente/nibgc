@@ -132,7 +132,7 @@ module.exports = function(app){
 						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano})
 						where m.id in (select idMembro from AtuaEm where ano=${ano} and status=0)
 						and m.id not in (select idMembro from AtuaEm where ano=${ano} and status=1)
-						order by m.nome desc`
+						order by m.nome`
 					db.query(sql, function(err, res){
 						db.release()
 						if(err) reject(err)
@@ -156,7 +156,7 @@ module.exports = function(app){
 						left join Membro l on(g.idLider=l.id)
 						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano})
 						where m.id not in (select idMembro from AtuaEm where ano=${ano})
-						order by m.nome desc`
+						order by m.nome`
 					db.query(sql, function(err, res){
 						db.release()
 						if(err) reject(err)
