@@ -94,7 +94,7 @@ module.exports = function(app){
 		},
 
 		getMembros: function(idMinisterio,ano,prioridade,status) {
-			//console.log(status)
+			console.log(idMinisterio,ano,prioridade)
 			return new Promise((resolve, reject) => {
 				connection(db => {
 					db.distinct()

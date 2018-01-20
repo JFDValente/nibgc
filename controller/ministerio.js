@@ -77,10 +77,11 @@ module.exports = function(app) {
 	app.get("/api/ministerios/membros/query", function(request, response){
 
 		let id = request.query.id
-		let ano = request.query.ano
+		let ano = request.query.ano || new Date().getFullYear()
 		let status = request.query.status
+		let prioridade = request.query.prioridade
 
-		ministerioDAO.getMembros(id,ano,status)
+		ministerioDAO.getMembros(id,ano,prioridade,status)
 		.then(
 			res => {
 				response.send(res)
