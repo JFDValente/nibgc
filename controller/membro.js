@@ -76,11 +76,9 @@ module.exports = function(app) {
 	//retonar os membros que se inscreveram na feira, mas não foram selecionados para nenhum ministerio
 	app.get("/api/membros/search/ministerio/naodefinido/query", function(request, response){
 
-		let attr = request.query.attr
-		let expression = request.query.expression
 		let ano = request.query.ano
 
-		membroDAO.getMembrosInscritosSemMinisterio(attr,expression,ano)
+		membroDAO.getMembrosInscritosSemMinisterio(ano)
 		.then(
 			res => {
 				response.send({rows:res})
@@ -96,11 +94,9 @@ module.exports = function(app) {
 	//retonar os membros que se inscreveram na feira, mas não foram selecionados para nenhum ministerio
 	app.get("/api/membros/search/ministerio/naoinscrito/query", function(request, response){
 
-		let attr = request.query.attr
-		let expression = request.query.expression
 		let ano = request.query.ano
 
-		membroDAO.getMembrosNaoInscritos(attr,expression,ano)
+		membroDAO.getMembrosNaoInscritos(ano)
 		.then(
 			res => {
 				response.send({rows:res})

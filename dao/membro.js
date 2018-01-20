@@ -118,7 +118,7 @@ module.exports = function(app){
 
 		//retornar todos os membros que participaram da feira, mas não foram selecionados 
 		//para estar em nenhum ministério
-		getMembrosInscritosSemMinisterio: function(attr,expression,ano){
+		getMembrosInscritosSemMinisterio: function(ano){
 			//console.log(status)
 			return new Promise((resolve, reject) => {
 				connection(db => {
@@ -130,10 +130,8 @@ module.exports = function(app){
 						left join Grupo g on(m.idGrupo=g.id) 
 						left join Membro l on(g.idLider=l.id)
 						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano}) 
-						where m.${attr} like \'%${expression}%\' and m.id in
-						(select idMembro from AtuaEm where ano=${ano} and status=0) 
-						and m.id not in
-						(select idMembro from AtuaEm where ano=${ano} and status=1)
+						where m.id in (select idMembro from AtuaEm where ano=${ano} and status=0) 
+						and m.id not in (select idMembro from AtuaEm where ano=${ano} and status=1)
 						order by m.nome desc`
 					db.query(sql, function(err, res){
 						db.release()
@@ -145,7 +143,7 @@ module.exports = function(app){
 		},
 
 		//retornar todos os membros que não se inscreveram em nenhum ministério na feira
-		getMembrosNaoInscritos: function(attr,expression,ano){
+		getMembrosNaoInscritos: function(ano){
 			//console.log(status)
 			return new Promise((resolve, reject) => {
 				connection(db => {
@@ -157,8 +155,7 @@ module.exports = function(app){
 						left join Grupo g on(m.idGrupo=g.id) 
 						left join Membro l on(g.idLider=l.id)
 						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano}) 
-						where m.${attr} like \'%${expression}%\' and m.id not in
-						(select id from AtuaEm where ano=${ano})
+						where m.id not in (select id from AtuaEm where ano=${ano})
 						order by m.nome desc`
 					
 					db.query(sql, function(err, res){
