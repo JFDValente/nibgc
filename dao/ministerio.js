@@ -107,6 +107,7 @@ module.exports = function(app){
 						'a.idMinisterio': idMinisterio,
 						'a.ano': ano
 					})
+					.order_by('m.nome')
 					.get(function(err, res){
 						db.release()
 						if(err) reject(err)
