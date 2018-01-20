@@ -157,7 +157,6 @@ module.exports = function(app){
 						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano}) 
 						where m.id not in (select idMembro from AtuaEm where ano=${ano})
 						order by m.nome desc`
-					
 					db.query(sql, function(err, res){
 						db.release()
 						if(err) reject(err)

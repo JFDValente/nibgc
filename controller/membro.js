@@ -58,7 +58,7 @@ module.exports = function(app) {
 		let attr = request.query.attr
 		let expression = request.query.expression
 		let idMinisterio = request.query.idMinisterio
-		let ano = request.query.ano
+		let ano = request.query.ano || new Date().getFullYear()
 
 		membroDAO.searchMatricula(attr,expression,idMinisterio,ano)
 		.then(
@@ -76,7 +76,7 @@ module.exports = function(app) {
 	//retonar os membros que se inscreveram na feira, mas não foram selecionados para nenhum ministerio
 	app.get("/api/membros/search/ministerio/naodefinido/query", function(request, response){
 
-		let ano = request.query.ano
+		let ano = request.query.ano || new Date().getFullYear()
 
 		membroDAO.getMembrosInscritosSemMinisterio(ano)
 		.then(
