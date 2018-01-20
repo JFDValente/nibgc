@@ -1,14 +1,26 @@
-<div class="ui two column centered grid" style="margin-bottom: .5em;">
-	<div class="row">
-		<div class="column" style="text-align: center;">
-			<h3>Membros</h3>
-			<a ng-href="/membros/cadastro" class="ui right labeled icon button">
-				Cadastrar
-				<i class="right plus icon"></i>
-			</a>
-		</div>
+<div style="text-align: center;">
+	<h3>Membros</h3>
+	<div class="ui buttons">
+		<back class="red">Voltar</back>
+		<div class="or" data-text="ou"></div>
+		<a ng-href="/membros/cadastro" class="ui right labeled icon button">
+			Cadastrar
+			<i class="right plus icon"></i>
+		</a>
 	</div>
 </div>
+
+<form class="ui form" ng-submit="onSubmit($event)" style="margin-top: 2em;">
+	<div class="field">
+		<div class="ui massive fluid icon input" ng-class="{ 'loading': loading }">
+			<input
+				placeholder="Pesquisar nome.."
+				autocomplete="off" autofocus
+				type="search" ng-model="search">
+			<i class="search icon"></i>
+		</div>
+	</div>
+</form>
 
 <message ng-if="message.length" text="{{ message }}" color="olive"></message>
 <loader model="loading"></loader>
