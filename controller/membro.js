@@ -80,7 +80,7 @@ module.exports = function(app) {
 		let expression = request.query.expression
 		let ano = request.query.ano
 
-		membroDAO.getMembrosInscritosSemMinisterio(attr,expression,idMinisterio,ano)
+		membroDAO.getMembrosInscritosSemMinisterio(attr,expression,ano)
 		.then(
 			res => {
 				response.send({rows:res})
@@ -100,7 +100,7 @@ module.exports = function(app) {
 		let expression = request.query.expression
 		let ano = request.query.ano
 
-		membroDAO.getMembrosNaoInscritos(attr,expression,idMinisterio,ano)
+		membroDAO.getMembrosNaoInscritos(attr,expression,ano)
 		.then(
 			res => {
 				response.send({rows:res})
