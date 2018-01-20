@@ -157,7 +157,10 @@ app.service("Ministerios", function($http, listener){
 				$http({
 					method: "DELETE",
 					url: "/api/ministerios/matricula",
-					data: { idMembro: idMembro, idMinisterio: idMinisterio }
+					data: { idMembro: idMembro, idMinisterio: idMinisterio },
+				    headers: {
+				        'Content-type': 'application/json;charset=utf-8'
+				    }
 				})
 				.then(
 					res => resolve(),
@@ -178,6 +181,6 @@ app.service("Ministerios", function($http, listener){
 					err => reject(err)
 				)
 			})
-		}		
+		}
 	}
 })

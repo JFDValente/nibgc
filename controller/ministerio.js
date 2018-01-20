@@ -125,7 +125,7 @@ module.exports = function(app) {
 
 		body.status = false
 		body.ano = hoje.getFullYear()
-		
+
 		console.log(body) //teste
 
 		ministerioDAO.matricula(body)
@@ -202,7 +202,7 @@ module.exports = function(app) {
 			response.status(500).send({ message: "Ocorreu um erro" })
 
 		}
-		
+
 		function atualiza(){
 			ministerioDAO.updateMatricula(body)
 			.then(
@@ -220,7 +220,7 @@ module.exports = function(app) {
 		if (body.prioridade) {
 			ministerioDAO.eliminaPrioridade(body).then(
 				res => atualiza(),
-				err => erro()	
+				err => erro()
 			)
 		}
 		else atualiza()
@@ -253,7 +253,7 @@ module.exports = function(app) {
 		let idMinisterio = request.body.idMinisterio
 		let idMembro = request.body.idMembro
 		let ano = request.body.ano || new Date().getFullYear()
-
+		
 		ministerioDAO.deleteMatricula(idMinisterio,idMembro,ano)
 		.then(
 			res => {

@@ -3,6 +3,10 @@
 		<label>Gerência {{ ministerio.nome }}</label>
 
 		<div class="field">
+			<back class="red">Voltar</back>
+		</div>
+
+		<div class="field">
 			<input ng-model="pesquisa.nome" type="text" placeholder="Nome">
 		</div>
 
@@ -33,16 +37,45 @@
 		<th>Nome</th>
 		<th>Líder</th>
 		<th>Contato</th>
+		<th>#</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="m in membros"
+		<tr ng-repeat="m in membros | filter : pesquisa.nome : nome"
 			ng-if="
-				(pesquisa.prioridade == false) ||
-				((pesquisa.prioridade == true) && (m.prioridade == true))
+				(
+					(pesquisa.tipo == 0) &&
+					(!pesquisa.prioridade || pesquisa.prioridade && m.prioridade)
+				) ||
+				(
+					(pesquisa.tipo == 1) &&
+					(
+						(!pesquisa.prioridade && !m.status) ||
+						(pesquisa.prioridade && m.prioridade && !m.status)
+					)
+				) ||
+				(
+					(pesquisa.tipo == 2) &&
+					(
+						(!pesquisa.prioridade && m.status) ||
+						(pesquisa.prioridade && m.prioridade && m.status)
+					)
+				)
 			">
 			<td>{{ m.nome }}</td>
 			<td>{{ m.nomeLider }}</td>
 			<td>{{ m.contato }}</td>
+			<td>
+				<button class="ui button yellow"
+					ng-if="m.status == false"
+					ng-click="atualiza($event, m)">
+					Definir
+				</button>
+				<button class="ui button black"
+					ng-if="m.status == true"
+					ng-click="atualiza($event, m)">
+					Retirar
+				</button>
+			</td>
 		</tr>
 	</tbody>
 </table>

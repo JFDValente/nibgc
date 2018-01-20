@@ -157,9 +157,9 @@ module.exports = function(app){
 		eliminaPrioridade: function(data) {
 			return new Promise((resolve, reject) =>{
 				connection(db => {
-					db.update(TABELA_ATUAEM, {prioridade: false}, 
+					db.update(TABELA_ATUAEM, {prioridade: false},
 								{
-									'idMembro': data.idMembro, 
+									'idMembro': data.idMembro,
 									'ano': data.ano
 								},
 					function(err, res){

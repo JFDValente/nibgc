@@ -6,11 +6,10 @@ app.controller("ministeriosGerencia", function(
 
 	$scope.tipos = [
 		{ nome: "Todos", valor: 0 },
-		{ nome: "Somente inscritos", valor: 1 },
-		{ nome: "Somente inscritos com prioridade", valor: 2 },
-		{ nome: "Somente definidos", valor: 3 },
-		{ nome: "Não definidos em nada", valor: 4 },
-		{ nome: "Não se inscreveu em nada", valor: 5 }
+		{ nome: "Somente Não Confirmados", valor: 1 },
+		{ nome: "Somente Confirmados", valor: 2 },
+		{ nome: "Não Confirmados em nada", valor: 3 },
+		{ nome: "Não se inscreveu em nada", valor: 4 }
 	]
 
 	$scope.pesquisa = {
@@ -50,16 +49,24 @@ app.controller("ministeriosGerencia", function(
 		getMembros()
 	}
 
-	$scope.matricula = function(membro, $event) {
+	$scope.atualiza = function($event, matricula) {
 		$($event.target).addClass("loading disabled")
-		Ministerios.matricula(membro.idMembro, $scope.ministerio.id).then(
+
+		let data = {
+			idMembro: matricula.idMembro,
+			idMinisterio: $scope.ministerio.id,
+			ano: new Date().getFullYear(),
+			status: !matricula.status
+		}
+
+		Ministerios.atualizaPrioridade(data).then(
 			res => {
-				membro.status = STATUS_INSCRITO
+				matricula.status = !matricula.status
 				$scope.$apply()
 				$($event.target).removeClass("loading disabled")
 			},
 			err => {
-				Dialog.error("Não foi possível concluir a inscrição. Informe o  suporte!")
+				Dialog.error("Não foi possível atualizar a matrícula. Informe o  suporte!")
 				$($event.target).removeClass("loading disabled")
 			}
 		)

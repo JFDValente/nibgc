@@ -1,7 +1,6 @@
 app.controller("ministeriosFeira", function(
 	$scope, Membros, Ministerios, Dialog, $routeParams){
 
-	const STATUS_INSCRITO = 3 //definição no banco de dados
 	$scope.search = ""
 	$scope.loading = true
 	Ministerios.find($routeParams.id).then(
@@ -37,7 +36,8 @@ app.controller("ministeriosFeira", function(
 		$($event.target).addClass("loading disabled")
 		Ministerios.matricula(membro.idMembro, $scope.ministerio.id).then(
 			res => {
-				membro.status = STATUS_INSCRITO
+				membro.status = false
+				membro.prioridade = false
 				$scope.$apply()
 				$($event.target).removeClass("loading disabled")
 			},
@@ -50,7 +50,7 @@ app.controller("ministeriosFeira", function(
 
 	$scope.cancelaMatricula = function(membro, $event) {
 		$($event.target).addClass("loading disabled")
-		Ministerios.cancelaMatricula(membro.id, $scope.ministerio.id).then(
+		Ministerios.cancelaMatricula(membro.idMembro, $scope.ministerio.id).then(
 			res => {
 				membro.status = null
 				$scope.$apply()

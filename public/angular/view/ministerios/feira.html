@@ -42,12 +42,12 @@
 			Cancelar Inscrição
 		</button>
 		<button
-			ng-click="alteraPrioridade(m, $event, true)" ng-if="(m.status == 0) && !m.prioridade"
+			ng-click="alteraPrioridade(m, $event, true)" ng-if="m.status != null && !m.prioridade"
 			class="ui orange button">
 			Marcar prioridade
 		</button>
 		<button
-			ng-click="alteraPrioridade(m, $event, false)" ng-if="(m.status != null) && m.prioridade"
+			ng-click="alteraPrioridade(m, $event, false)" ng-if="m.status != null && m.prioridade"
 			class="ui red button">
 			Remover prioridade
 		</button>
