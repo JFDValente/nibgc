@@ -1,0 +1,48 @@
+<form class="ui form" ng-submit="onSubmit($event)" ng-if="ministerio">
+	<div class="inline fields">
+		<label>Gerência {{ ministerio.nome }}</label>
+
+		<div class="field">
+			<input ng-model="pesquisa.nome" type="text" placeholder="Nome">
+		</div>
+
+		<div class="field">
+			<select
+				ng-options="t.valor as t.nome for t in tipos"
+				class="ui dropdown" ng-model="pesquisa.tipo">
+			</select>
+		</div>
+
+		<div class="field">
+			<label for="prioridade">Prioridade</label>
+			<input type="checkbox" id="prioridade" ng-model="pesquisa.prioridade">
+		</div>
+
+		<div class="field">
+			<button class="ui button" type="submit">
+				Pesquisar
+			</button>
+		</div>
+	</div>
+</form>
+
+<loader model="loading"></loader>
+
+<table class="ui table" ng-if="membros.length">
+	<thead>
+		<th>Nome</th>
+		<th>Líder</th>
+		<th>Contato</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="m in membros"
+			ng-if="
+				(pesquisa.prioridade == false) ||
+				((pesquisa.prioridade == true) && (m.prioridade == true))
+			">
+			<td>{{ m.nome }}</td>
+			<td>{{ m.nomeLider }}</td>
+			<td>{{ m.contato }}</td>
+		</tr>
+	</tbody>
+</table>

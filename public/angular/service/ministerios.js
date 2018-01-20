@@ -178,6 +178,6 @@ app.service("Ministerios", function($http, listener){
 					err => reject(err)
 				)
 			})
-		}
+		}		
 	}
 })

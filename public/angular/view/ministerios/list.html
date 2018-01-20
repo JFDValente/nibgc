@@ -21,12 +21,21 @@
 	<thead>
 		<th>Ministério</th>
 		<th>Líder</th>
+		<th>Feira</th>
 		<th>#</th>
 	</thead>
 	<tr ng-repeat="m in ministerios | filtro: pesquisa : 'nome'">
 		<td>{{ m.nome | uppercase }}</td>
 		<td>
 			<a ng-href="/membros/{{ m.idLider }}">{{ m.nomeLider | uppercase }}</a>
+		</td>
+		<td>
+			<a href="/ministerios/{{ m.id }}/feira" class="ui button">
+				Feira de ministérios
+			</a>
+			<a href="/ministerios/{{ m.id }}/gerencia" class="ui icon button" title="Gerenciar">
+				<i class="configure icon"></i>
+			</a>
 		</td>
 		<td>
 			<a ng-href="/ministerios/{{ m.id }}" class="ui icon button" title="Visualizar">
@@ -38,9 +47,6 @@
 			<button class="ui icon button" ng-click="onDelete(m)" title="Excluir">
 				<i class="trash icon"></i>
 			</button>
-			<a href="/ministerios/{{ m.id }}/feira" class="ui button">
-				Feira de ministérios
-			</a>
 		</td>
 	</tr>
 </table>

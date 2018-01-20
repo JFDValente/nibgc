@@ -50,6 +50,10 @@ app.config(function($routeProvider, $locationProvider){
 		templateUrl: 'angular/view/ministerios/feira.html',
 		controller: 'ministeriosFeira'
 	})
+	.when("/ministerios/:id/gerencia", {
+		templateUrl: 'angular/view/ministerios/gerencia.html',
+		controller: 'ministeriosGerencia'
+	})
 
 	.when('/logout', {
 		redirectTo: function() {

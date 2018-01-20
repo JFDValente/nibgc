@@ -32,22 +32,22 @@
 	<td>{{ m.nomeLider }}</td>
 	<td>
 		<button
-			ng-click="matricula(m, $event)" ng-if="!m.status"
+			ng-click="matricula(m, $event)" ng-if="m.status == null"
 			class="ui positive button">
 			Inscrever
 		</button>
 		<button
-			ng-click="cancelaMatricula(m, $event)" ng-if="m.status"
+			ng-click="cancelaMatricula(m, $event)" ng-if="m.status != null"
 			class="ui secondary button">
 			Cancelar Inscrição
 		</button>
 		<button
-			ng-click="alteraPrioridade(m, $event, true)" ng-if="m.status && !m.prioridade"
+			ng-click="alteraPrioridade(m, $event, true)" ng-if="(m.status == 0) && !m.prioridade"
 			class="ui orange button">
 			Marcar prioridade
 		</button>
 		<button
-			ng-click="alteraPrioridade(m, $event, false)" ng-if="m.status && m.prioridade"
+			ng-click="alteraPrioridade(m, $event, false)" ng-if="(m.status != null) && m.prioridade"
 			class="ui red button">
 			Remover prioridade
 		</button>
