@@ -18,7 +18,7 @@ app.controller("ministeriosGerencia", function(
 		prioridade: false
 	}
 
-	function render(data) {console.log(data);
+	function render(data) {
 		$scope.membros = data
 		$scope.loading = false
 		$scope.$apply()
@@ -35,7 +35,6 @@ app.controller("ministeriosGerencia", function(
 
 	function getMembros() {
 		$scope.loading = true
-
 		if($scope.pesquisa.tipo == 0) {
 			Feira.pesquisaTodos($scope.ministerio.id)
 			.then(
@@ -59,11 +58,13 @@ app.controller("ministeriosGerencia", function(
 		}
 	}
 
-	$scope.onSubmit = function() {		
-		$scope.membros = []
-		$scope.message = ""
-		$scope.loading = true
-		getMembros()
+	$scope.onSubmit = function() {
+		if($scope.pesquisa.tipo != 1 && $scope.pesquisa.tipo != 2) {
+			$scope.membros = []
+			$scope.message = ""
+			$scope.loading = true
+			getMembros()
+		}
 	}
 
 	$scope.atualiza = function($event, matricula) {

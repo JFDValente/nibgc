@@ -54,7 +54,14 @@
 						(!pesquisa.prioridade && m.status) ||
 						(pesquisa.prioridade && m.prioridade && m.status)
 					)
-				)
+				) ||
+				(
+					(pesquisa.tipo == 3) &&
+					(
+						(!pesquisa.prioridade) || (pesquisa.prioridade && m.prioridade)
+					)
+				) ||
+				pesquisa.tipo == 4
 			">
 			<td>{{ m.nome }}</td>
 			<td>{{ m.nomeLider }}</td>
