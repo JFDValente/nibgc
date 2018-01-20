@@ -124,7 +124,8 @@ module.exports = function(app){
 				connection(db => {
 					let sql= `
 						select m.id as idMembro,m.nome,m.contato,l.id as idLider,
-								l.nome as nomeLider, null as status, null as prioridade 
+								l.nome as nomeLider, null as status, null as prioridade,
+								'a.base' 
 						from Membro m 
 						left join Grupo g on(m.idGrupo=g.id) 
 						left join Membro l on(g.idLider=l.id)
@@ -151,7 +152,8 @@ module.exports = function(app){
 				connection(db => {
 					let sql= `
 						select m.id as idMembro,m.nome,m.contato,l.id as idLider,
-								l.nome as nomeLider, null as status, null as prioridade 
+								l.nome as nomeLider, null as status, null as prioridade,
+								'a.base' 
 						from Membro m 
 						left join Grupo g on(m.idGrupo=g.id) 
 						left join Membro l on(g.idLider=l.id)

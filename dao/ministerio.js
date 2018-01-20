@@ -98,7 +98,7 @@ module.exports = function(app){
 				connection(db => {
 					db.distinct()
 					.select(['m.id as idMembro','m.nome','m.contato','a.prioridade',
-						'a.status','l.id as idLider','l.nome as nomeLider'])
+						'a.status','l.id as idLider','l.nome as nomeLider','a.base'])
 					.from(TABELA_MEMBRO + ' m')
 					.join(TABELA_ATUAEM + ' a','m.id=a.idMembro')
 					.join(TABELA_GRUPO + ' g','m.idGrupo=g.id')
