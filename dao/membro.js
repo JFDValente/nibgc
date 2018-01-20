@@ -129,8 +129,7 @@ module.exports = function(app){
 						from Membro m 
 						left join Grupo g on(m.idGrupo=g.id) 
 						left join Membro l on(g.idLider=l.id)
-						left join AtuaEm a on(m.id=a.idMembro and a.idMinisterio=${idMinisterio} 
-											  and a.ano=${ano}) 
+						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano}) 
 						where m.${attr} like \'%${expression}%\' and m.id in
 						(select idMembro from AtuaEm where ano=${ano} and status=0) 
 						and m.id not in
@@ -157,8 +156,7 @@ module.exports = function(app){
 						from Membro m 
 						left join Grupo g on(m.idGrupo=g.id) 
 						left join Membro l on(g.idLider=l.id)
-						left join AtuaEm a on(m.id=a.idMembro and a.idMinisterio=${idMinisterio} 
-											  and a.ano=${ano}) 
+						left join AtuaEm a on(m.id=a.idMembro and a.ano=${ano}) 
 						where m.${attr} like \'%${expression}%\' and m.id not in
 						(select id from AtuaEm where ano=${ano})
 						order by m.nome desc`
