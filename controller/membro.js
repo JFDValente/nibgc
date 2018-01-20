@@ -73,6 +73,46 @@ module.exports = function(app) {
 		)
 	})
 
+	//retonar os membros que se inscreveram na feira, mas não foram selecionados para nenhum ministerio
+	app.get("/api/membros/search/ministerio/naodefinido/query", function(request, response){
+
+		let attr = request.query.attr
+		let expression = request.query.expression
+		let ano = request.query.ano
+
+		membroDAO.getMembrosInscritosSemMinisterio(attr,expression,idMinisterio,ano)
+		.then(
+			res => {
+				response.send({rows:res})
+			},
+			err => {
+				console.error("get /api/membros/search/ministerio/query\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
+	//retonar os membros que se inscreveram na feira, mas não foram selecionados para nenhum ministerio
+	app.get("/api/membros/search/ministerio/naoinscrito/query", function(request, response){
+
+		let attr = request.query.attr
+		let expression = request.query.expression
+		let ano = request.query.ano
+
+		membroDAO.getMembrosNaoInscritos(attr,expression,idMinisterio,ano)
+		.then(
+			res => {
+				response.send({rows:res})
+			},
+			err => {
+				console.error("get /api/membros/search/ministerio/query\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
 	app.post("/api/membros", function(request, response){
 
 		let body = request.body

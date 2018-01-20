@@ -89,7 +89,8 @@ module.exports = function(app){
 						from Membro m 
 						left join Grupo g on(m.idGrupo=g.id) 
 						left join Membro l on(g.idLider=l.id)
-						left join AtuaEm a on(m.id=a.idMembro and a.idMinisterio=${idMinisterio} and a.ano=${ano}) 
+						left join AtuaEm a on(m.id=a.idMembro and a.idMinisterio=${idMinisterio} 
+											  and a.ano=${ano}) 
 						where m.${attr} like \'%${expression}%\' 
 						order by m.nome desc`
 					//console.log(sql)
@@ -113,6 +114,60 @@ module.exports = function(app){
 					})
 				})
 			})
-		}
+		},
+
+		//retornar todos os membros que participaram da feira, mas não foram selecionados 
+		//para estar em nenhum ministério
+		getMembrosInscritosSemMinisterio: function(attr,expression,ano){
+			//console.log(status)
+			return new Promise((resolve, reject) => {
+				connection(db => {
+					let sql= `
+						select m.id as idMembro,m.nome,m.contato,l.id as idLider,
+								l.nome as nomeLider, null as status, null as prioridade 
+						from Membro m 
+						left join Grupo g on(m.idGrupo=g.id) 
+						left join Membro l on(g.idLider=l.id)
+						left join AtuaEm a on(m.id=a.idMembro and a.idMinisterio=${idMinisterio} 
+											  and a.ano=${ano}) 
+						where m.${attr} like \'%${expression}%\' and m.id in
+						(select idMembro from AtuaEm where ano=${ano} and status=0) 
+						and m.id not in
+						(select idMembro from AtuaEm where ano=${ano} and status=1)
+						order by m.nome desc`
+					db.query(sql, function(err, res){
+						db.release()
+						if(err) reject(err)
+						else resolve(res)
+					})
+				})
+			})
+		},
+
+		//retornar todos os membros que não se inscreveram em nenhum ministério na feira
+		getMembrosNaoInscritos: function(attr,expression,ano){
+			//console.log(status)
+			return new Promise((resolve, reject) => {
+				connection(db => {
+					let sql= `
+						select m.id as idMembro,m.nome,m.contato,l.id as idLider,
+								l.nome as nomeLider, null as status, null as prioridade 
+						from Membro m 
+						left join Grupo g on(m.idGrupo=g.id) 
+						left join Membro l on(g.idLider=l.id)
+						left join AtuaEm a on(m.id=a.idMembro and a.idMinisterio=${idMinisterio} 
+											  and a.ano=${ano}) 
+						where m.${attr} like \'%${expression}%\' and m.id not in
+						(select id from AtuaEm where ano=${ano})
+						order by m.nome desc`
+					
+					db.query(sql, function(err, res){
+						db.release()
+						if(err) reject(err)
+						else resolve(res)
+					})
+				})
+			})
+		},
 	}
 }

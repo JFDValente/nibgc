@@ -1,11 +1,10 @@
 module.exports = function(app){
-	const STATUS_MATRICULADO = 1
-	const STATUS_SELECIONADO = 2
-	const STATUS_CONFIRMADO = 3
 
 	const TABELA_MINISTERIO = app.config.database.tabelas.TABELA_MINISTERIO
 	const TABELA_MEMBRO = app.config.database.tabelas.TABELA_MEMBRO
 	const TABELA_ATUAEM = app.config.database.tabelas.TABELA_ATUAEM
+	const TABELA_GRUPO = app.config.database.tabelas.TABELA_GRUPO
+
 	let connection = app.config.database.db()
 
 	return {
@@ -94,41 +93,22 @@ module.exports = function(app){
 			})
 		},
 
-		//funcao incompleta
-		getMembros: function(id,ano,status=[STATUS_MATRICULADO,STATUS_SELECIONADO,STATUS_CONFIRMADO]) {
+		getMembros: function(idMinisterio,ano,prioridade,status) {
 			//console.log(status)
 			return new Promise((resolve, reject) => {
 				connection(db => {
 					db.distinct()
-					.select(['m.id','m.nome','m.contato','a.prioridade','a.status'])
+					.select(['m.idMembro','m.nome','m.contato','a.prioridade',
+						'a.status','l.id as idLider','l.nome as nomeLider'])
 					.from(TABELA_MEMBRO + ' m')
 					.join(TABELA_ATUAEM + ' a','m.id=a.idMembro')
-					.where({'idMinisterio': id,'ano': ano})
-					.where_in('a.status',status)
-					.get(function(err, res){
-						db.release()
-						if(err) reject(err)
-						else resolve(res)
-					})
-				})
-			})
-		},
-
-		getMembrosPorPrioridade: function(idMinisterio,ano,prioridade,status=[STATUS_MATRICULADO,STATUS_SELECIONADO,STATUS_CONFIRMADO]) {
-			//console.log(status)
-			return new Promise((resolve, reject) => {
-				connection(db => {
-					db.distinct()
-					.select(['m.id','m.nome','m.contato','a.prioridade','a.status'])
-					.from(TABELA_MEMBRO + ' m')
-					.join(TABELA_ATUAEM + ' a','m.id=a.idMembro')
+					.join(TABELA_GRUPO + ' g','m.idGrupo=g.id')
+					.join(TABELA_MEMBRO + ' l','g.idLider=l.id')
 					.where({
-						'idMinisterio': idMinisterio,
-						'ano': ano,
-						'status': status,
-						'prioridade': prioridade
+						'a.idMinisterio': idMinisterio,
+						'a.ano': ano,
+						'a.prioridade': prioridade
 					})
-					.where_in('a.status',status)
 					.get(function(err, res){
 						db.release()
 						if(err) reject(err)
@@ -179,9 +159,13 @@ module.exports = function(app){
 		eliminaPrioridade: function(data) {
 			return new Promise((resolve, reject) =>{
 				connection(db => {
-					db.update(TABELA_ATUAEM, {prioridade: false}, {'idMembro': data.idMembro, 'ano': data.ano},
-							 function(err, res){
-								 db.release()
+					db.update(TABELA_ATUAEM, {prioridade: false}, 
+								{
+									'idMembro': data.idMembro, 
+									'ano': data.ano
+								},
+					function(err, res){
+						db.release()
 						if(err) reject(err)
 						else resolve(res)
 					})

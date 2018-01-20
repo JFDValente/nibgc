@@ -55,13 +55,30 @@ module.exports = function(app) {
 	//retornar todos os membros de um determinado ministério, cujo id é passado como parâmetro
 	app.get("/api/ministerios/membros/query", function(request, response){
 
+		let idMinisterio = request.query.idMinisterio
+		let ano = request.query.ano || new Date().getFullYear()
+		let prioridade = request.query.prioridade
+		let status = request.query.status
+
+		ministerioDAO.getMembros(idMinisterio,ano,prioridade,status)
+		.then(
+			res => {
+				response.send(res)
+			},
+			err => {
+				console.error("get /api/ministerios/membros/query\n")
+				console.error(err)
+				response.status(500).send({ erro: err })
+			}
+		)
+	})
+
+	//retornar todos os membros de um determinado ministério, cujo id é passado como parâmetro
+	app.get("/api/ministerios/membros/query", function(request, response){
+
 		let id = request.query.id
 		let ano = request.query.ano
 		let status = request.query.status
-
-		if (status){
-			status = status.split(",")
-		}
 
 		ministerioDAO.getMembros(id,ano,status)
 		.then(
@@ -105,7 +122,7 @@ module.exports = function(app) {
 		let body = request.body
 		let hoje = new Date()
 
-		body.status = 1
+		body.status = false
 		body.ano = hoje.getFullYear()
 		
 		console.log(body) //teste
