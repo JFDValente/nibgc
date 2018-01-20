@@ -81,7 +81,7 @@ module.exports = function(app) {
 		membroDAO.getMembrosInscritosSemMinisterio(ano)
 		.then(
 			res => {
-				response.send({rows:res})
+				response.send()
 			},
 			err => {
 				console.error("get /api/membros/search/ministerio/query\n")
@@ -99,7 +99,7 @@ module.exports = function(app) {
 		membroDAO.getMembrosNaoInscritos(ano)
 		.then(
 			res => {
-				response.send({rows:res})
+				response.send()
 			},
 			err => {
 				console.error("get /api/membros/search/ministerio/query\n")
