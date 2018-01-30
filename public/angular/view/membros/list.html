@@ -17,13 +17,12 @@
 				placeholder="Pesquisar nome.."
 				autocomplete="off" autofocus
 				type="search" ng-model="search">
-			<i class="search icon"></i>
+			<i class="inverted circular link search icon"></i>
 		</div>
 	</div>
 </form>
 
 <message ng-if="message.length" text="{{ message }}" color="olive"></message>
-<loader model="loading"></loader>
 
 <table class="ui table celled" ng-if="membros.length && !loading">
 	<thead>
@@ -42,7 +41,7 @@
 			<a ng-href="/membros/{{ m.id }}" class="ui button">
 				Visualizar
 			</a>
-			<a href="/membros/{{ m.id }}" class="ui button">
+			<a href="/membros/{{ m.id }}/cadastro" class="ui button">
 				Editar
 			</a>
 			<button class="ui button" ng-click="onDelete(m.id)">

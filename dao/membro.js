@@ -106,8 +106,14 @@ module.exports = function(app){
 		find: function(id) {
 			return new Promise((resolve, reject) =>{
 				connection(db => {
-					db.where({ 'id =': id})
-					.get(TABELA_MEMBRO, function(err, res){
+					db.from(TABELA_MEMBRO + " m")
+					.select(`
+						m.id,m.nome,m.contato,
+						l.id as idLider,l.nome as nomeLider
+					`)
+					.join(TABELA_MEMBRO + ' l','m.id = l.id')
+					.where({ 'm.id': id})
+					.get(function(err, res){
 						db.release()
 						if(err) reject(err)
 						else resolve(res[0])

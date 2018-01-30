@@ -30,6 +30,7 @@ app.directive('dropdownRemote', ['$timeout', function($timeout) {
             ngModel.$render = function () {
 				$(el).search({
 				    minCharacters : 3,
+					searchOnFocus: false,
 				    apiSettings   : {
 				      url: `${atts.url}?attr=${atts.text}&expression=${input.val()}`
 				  	},

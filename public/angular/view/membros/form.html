@@ -1,6 +1,31 @@
-<form action="" class="ui form">
+<form class="ui form" ng-submit="onSubmit($event)">
+	<div class="fields">
+		<div class="field five wide">
+			<label>Nome</label>
+			<input
+				ng-model="membro.nome" autocomplete="off"
+				type="text" name="nome" placeholder="Nome completo">
+		</div>
+		<div class="field four wide">
+			<label>Contato</label>
+			<input
+				ng-model="membro.contato"
+				type="text" name="contato" autocomplete="off"
+				placeholder="xxxxx-xxxx" mask="99999-9999">
+		</div>
+		<div class="field five wide">
+			<label>Líder do grupo</label>
+			<dropdown-remote
+				ng-model="lider.nome" change="onChange(item)" items="lideres"
+				url="/api/membros/search/query" text="nome" value="id">
+			</dropdown-remote>
+		</div>
+	</div>
+
 	<div class="field">
-		<label>Nome</label>
-		<input type="text" name="nome" placeholder="Nome completo">
+		<back class="red">Voltar</back>
+		<button class="ui button" ng-class="{'loading disabled' : loading}">
+			Cadastrar
+		</button>
 	</div>
 </form>

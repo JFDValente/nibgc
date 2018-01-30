@@ -57,6 +57,47 @@ app.service("Membros", function($http){
 			})
 		},
 
+		find: (id) => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "GET",
+					url: "/api/membros/" + id
+				})
+				.then(
+					res => resolve(res.data),
+					err => reject(err)
+				)
+			})
+		},
+
+		create: (data) => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "POST",
+					url: "/api/membros/",
+					data: data
+				})
+				.then(
+					res => resolve(res.data),
+					err => reject(err)
+				)
+			})
+		},
+
+		update: (data) => {
+			return new Promise((resolve, reject) => {
+				$http({
+					method: "PUT",
+					url: "/api/membros/",
+					data: data
+				})
+				.then(
+					res => resolve(res.data),
+					err => reject(err)
+				)
+			})
+		},
+
 		delete: (item, callback) => {
 			$http({
 				method: "DELETE",

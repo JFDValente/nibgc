@@ -1,5 +1,5 @@
 const app = angular.module("nibgc", [
-	'ngRoute'
+	'ngRoute','ngMask'
 ])
 
 const socket = io()
@@ -19,6 +19,14 @@ app.config(function($routeProvider, $locationProvider){
 	.when("/membros", {
 		templateUrl: 'angular/view/membros/list.html',
 		controller: 'membros'
+	})
+	.when("/membros/cadastro", {
+		templateUrl: 'angular/view/membros/form.html',
+		controller: 'membrosForm'
+	})
+	.when("/membros/:id/cadastro", {
+		templateUrl: 'angular/view/membros/form.html',
+		controller: 'membrosForm'
 	})
 
 	.when("/grupos", {

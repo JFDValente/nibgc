@@ -25,14 +25,6 @@ app.controller("membros", function($scope, Membros, Dialog){
 		})
 	}
 
-	Membros.get().then(
-		data => render(data),
-		err => {
-			console.log(err)
-			Dialog.error()
-		}
-	)
-
 	function render(data) {
 
 		$scope.membros = data
